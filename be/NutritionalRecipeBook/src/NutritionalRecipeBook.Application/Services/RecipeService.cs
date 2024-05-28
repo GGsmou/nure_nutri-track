@@ -82,19 +82,9 @@ namespace NutritionalRecipeBook.Application.Services
         {
             var allIngredients = request.NewIngredients.Concat(request.ExistingIngredients);
 
-            var calories = await _nutritionService.GetRecipeCalories(request.ServingSizeInGrams, allIngredients);
+            var recipeSpecification = new RecipeSpecification(request.Name, request.Description, request.Calories);
 
-            var recipeSpecification = new RecipeSpecification(request.Name, request.Description, request.CookingProcess, request.CookingTime, request.ServingSizeInGrams, calories);
-
-            var category = await _categoryRepository.GetByIdAsync(request.Category.Id);
-
-            if (category == null)
-            {
-                request.Category.Id = Guid.NewGuid();
-                category = request.Category;
-            }
-
-            var recipe = new Recipe(recipeSpecification, category, request.UserId);
+            var recipe = new Recipe(recipeSpecification, request.UserId);
 
             await _recipeRepository.CreateAsync(recipe);
             await AddIngredients(recipe, request);
@@ -121,7 +111,6 @@ namespace NutritionalRecipeBook.Application.Services
             if (existingRecipe.UserId == user.Id)
             {
                 await UpdatePlainProperties(existingRecipe, request);
-                await UpdateCategory(existingRecipe, request);
                 await UpdateIngredients(existingRecipe, request);
                 await _recipeRepository.UpdateAsync(existingRecipe);
 
@@ -211,34 +200,11 @@ namespace NutritionalRecipeBook.Application.Services
             await _recipeIngredientRepository.CreateManyAsync(ingredientsToAdd);
         }
 
-        private async Task UpdateCategory(Recipe recipeToUpdate, UpdateRecipeRequest request)
-        {
-            var existingCategory = await _categoryRepository.GetByIdAsync(request.Category.Id);
-
-            if (existingCategory == null)
-            {
-                request.Category.Id = Guid.NewGuid();
-                await _categoryRepository.CreateAsync(request.Category);
-                recipeToUpdate.Category = request.Category;
-            }
-            else
-            {
-                recipeToUpdate.Category = existingCategory;
-            }
-        }
-
         private async Task UpdatePlainProperties(Recipe recipeToUpdate, UpdateRecipeRequest request)
         {
-            var allIngredients = request.NewIngredients.Concat(request.ExistingIngredients);
-
-            var calories = await _nutritionService.GetRecipeCalories(request.ServingSizeInGrams, allIngredients);
-
             recipeToUpdate.Name = request.Name;
             recipeToUpdate.Description = request.Description;
-            recipeToUpdate.CookingProcess = request.CookingProcess;
-            recipeToUpdate.ServingSizeInGrams = request.ServingSizeInGrams;
-            recipeToUpdate.CookingTime = request.CookingTime;
-            recipeToUpdate.Calories = calories;
+            recipeToUpdate.Calories = request.Calories;
         }
     }
 }

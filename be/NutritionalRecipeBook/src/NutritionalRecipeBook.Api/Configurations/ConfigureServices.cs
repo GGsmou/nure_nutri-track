@@ -49,7 +49,7 @@ namespace NutritionalRecipeBook.Api.Configurations
             services.Configure<JwtSettings>(config.GetSection("JwtSettings"));
             services.Configure<NutritionixSettings>(config.GetSection("NutritionixSettings"));
 
-            services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+           services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 
 
 

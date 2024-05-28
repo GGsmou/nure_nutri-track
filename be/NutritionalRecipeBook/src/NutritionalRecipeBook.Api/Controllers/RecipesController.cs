@@ -36,13 +36,6 @@ namespace NutritionalRecipeBook.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll([FromQuery] SearchParams parameters)
         {
-            var validation = _searchParamsValidator.Validate(parameters);
-
-            if (!validation.IsValid)
-            {
-                return BadRequest(validation.Errors);
-            }
-
             var result = await _recipeService.GetAllAsync(parameters);
 
             if (result.IsSuccess)
@@ -77,13 +70,6 @@ namespace NutritionalRecipeBook.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CreateRecipeRequest request)
         {
-            var validation = _createRecipeValidator.Validate(request);
-
-            if (!validation.IsValid)
-            {
-                return BadRequest(validation.Errors);
-            }
-
             var result = await _recipeService.CreateAsync(request);
 
             return result.IsSuccess ? Ok("Succesfully created") : BadRequest(result.Error.Message);
@@ -92,13 +78,6 @@ namespace NutritionalRecipeBook.Api.Controllers
         [HttpPut]
         public async Task<IActionResult> Update([FromBody] UpdateRecipeRequest request)
         {
-            var validation = _updateRecipeValidator.Validate(request);
-
-            if (!validation.IsValid)
-            {
-                return BadRequest(validation.Errors);
-            }
-
             var result = await _recipeService.UpdateAsync(request);
 
             return result.IsSuccess ? Ok("Succesfully updated") : BadRequest(result.Error.Message);

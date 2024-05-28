@@ -19,19 +19,9 @@ namespace NutritionalRecipeBook.Infrastructure.Configurations.Entities
                 .IsRequired()
                 .HasMaxLength(500);
 
-            builder.Property(r => r.CookingProcess)
-                .HasColumnType("nvarchar")
-                .IsRequired()
-                .HasMaxLength(500);
-
-            builder.HasOne<IdentityUser>()
-                .WithMany()
-                .HasForeignKey(r => r.UserId);
-
-            builder.HasMany(r => r.Reviews)
-                .WithOne()
-                .HasForeignKey(r => r.RecipeId)
-                .OnDelete(DeleteBehavior.NoAction);
+            // builder.HasOne<IdentityUser>()
+            //     .WithMany()
+            //     .HasForeignKey(r => r.UserId);
         }
     }
 }

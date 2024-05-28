@@ -13,10 +13,9 @@ namespace NutritionalRecipeBook.Infrastructure.Repositories
 
         public Task<Recipe?> GetByIdWithRelationsAsync(Guid id)
         {
-            return _dbSet.Include(r => r.Category)
+            return _dbSet
                 .Include(r => r.Ingredients)
                 .ThenInclude(ri => ri.Ingredient)
-                .Include(r => r.Reviews)
                 .FirstOrDefaultAsync(r => r.Id == id);
         }
 
@@ -33,7 +32,7 @@ namespace NutritionalRecipeBook.Infrastructure.Repositories
 
             if (!filters.IsNullOrEmpty())
             {
-                query = query.Where(r => filters.Contains(r.Category.Name) || r.Ingredients.Any(ri => filters.Contains(ri.Ingredient.Name)));
+                query = query.Where(r => r.Ingredients.Any(ri => filters.Contains(ri.Ingredient.Name)));
             }
 
             if (parameters.MinCalories.HasValue)
@@ -46,7 +45,7 @@ namespace NutritionalRecipeBook.Infrastructure.Repositories
                 query = query.Where(r => r.Calories <= parameters.MaxCalories);
             }
 
-            query = query.OrderBy(r => r.Id).Include(r => r.Ingredients).ThenInclude(ri => ri.Ingredient).Include(r => r.Category).Include(r => r.Reviews);
+            query = query.OrderBy(r => r.Id).Include(r => r.Ingredients).ThenInclude(ri => ri.Ingredient);
 
             var count = await query.CountAsync();
             var items = await query.Skip((parameters.PageNumber - 1) * parameters.PageSize).Take(parameters.PageSize).ToListAsync();
