@@ -9,5 +9,9 @@
         public string UserId { get; set; }
 
         public User User { get; set; }
+        
+        public CalorieNote? CalorieNote { get; set; }
+        
+        public Guid? CCalorieNoteId { get; set; }
     }
 }

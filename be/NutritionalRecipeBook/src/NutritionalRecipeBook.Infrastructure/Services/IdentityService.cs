@@ -54,10 +54,10 @@ namespace NutritionalRecipeBook.Infrastructure.Services
 
             var result = await _userManager.CreateAsync(user, request.Password);
 
-            if (result.Succeeded)
-            {
-                await SendConfirmationEmailAsync(user, request.Email);
-            }
+            // if (result.Succeeded)
+            // {
+            //     await SendConfirmationEmailAsync(user, request.Email);
+            // }
 
             return result;
         }
