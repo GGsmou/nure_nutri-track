@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NutritionalRecipeBook.Infrastructure;
 
@@ -11,9 +12,11 @@ using NutritionalRecipeBook.Infrastructure;
 namespace NutritionalRecipeBook.Infrastructure.Migrations
 {
     [DbContext(typeof(RecipeBookContext))]
-    partial class RecipeBookContextModelSnapshot : ModelSnapshot
+    [Migration("20240528090605_UpdateHydration")]
+    partial class UpdateHydration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -232,7 +235,12 @@ namespace NutritionalRecipeBook.Infrastructure.Migrations
                     b.Property<decimal>("Intake")
                         .HasColumnType("decimal(18,2)");
 
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Hydration");
                 });
@@ -412,28 +420,6 @@ namespace NutritionalRecipeBook.Infrastructure.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
-            modelBuilder.Entity("NutritionalRecipeBook.Domain.Entities.UserHydration", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("HydrationId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("HydrationId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("UserHydrations");
-                });
-
             modelBuilder.Entity("NutritionalRecipeBook.Domain.Entities.UserIngredient", b =>
                 {
                     b.Property<string>("UserId")
@@ -527,6 +513,13 @@ namespace NutritionalRecipeBook.Infrastructure.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("NutritionalRecipeBook.Domain.Entities.Hydration", b =>
+                {
+                    b.HasOne("NutritionalRecipeBook.Domain.Entities.User", null)
+                        .WithMany("Hydrations")
+                        .HasForeignKey("UserId");
+                });
+
             modelBuilder.Entity("NutritionalRecipeBook.Domain.Entities.Recipe", b =>
                 {
                     b.HasOne("NutritionalRecipeBook.Domain.Entities.Category", "Category")
@@ -576,25 +569,6 @@ namespace NutritionalRecipeBook.Infrastructure.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("NutritionalRecipeBook.Domain.Entities.UserHydration", b =>
-                {
-                    b.HasOne("NutritionalRecipeBook.Domain.Entities.Hydration", "Hydration")
-                        .WithMany()
-                        .HasForeignKey("HydrationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("NutritionalRecipeBook.Domain.Entities.User", "User")
-                        .WithMany("Hydrations")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Hydration");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("NutritionalRecipeBook.Domain.Entities.UserIngredient", b =>

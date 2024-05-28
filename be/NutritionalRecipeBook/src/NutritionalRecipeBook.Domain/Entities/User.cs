@@ -8,6 +8,6 @@ namespace NutritionalRecipeBook.Domain.Entities
 
         public List<UserIngredient> ShoppingList { get; set; }
 
-        public Hydration? Hydration { get; set; }
+        public List<UserHydration> Hydrations { get; set; }
     }
 }
