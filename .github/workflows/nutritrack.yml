@@ -10,6 +10,7 @@ on:
 env:
   AZURE_WEBAPP_NAME: nutritrack
   AZURE_WEBAPP_PACKAGE_PATH: be/NutritionalRecipeBook/src/NutritionalRecipeBook.Api/publish
+  WORKING_DIRECTORY: be/NutritionalRecipeBook/src/NutritionalRecipeBook.Api
   DOTNET_VERSION: '8.x'             
 
 jobs:
@@ -27,8 +28,8 @@ jobs:
       
       - name: dotnet build and publish
         run: |
-          dotnet restore
-          dotnet build --configuration Release
+          dotnet restore ${{ env.WORKING_DIRECTORY }}
+          dotnet build ${{ env.WORKING_DIRECTORY }} --configuration Release --no-restore
           dotnet publish -c Release -o '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/myapp' 
           
       - name: 'Run Azure webapp deploy action using publish profile credentials'
