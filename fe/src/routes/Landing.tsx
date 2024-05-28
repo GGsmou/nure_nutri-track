@@ -257,7 +257,7 @@ export const Landing = () => {
             </Box>
           </Container>
         </Box>
-        <Box bgcolor="#FFFFFF" pt="40px">
+        <Box bgcolor="#FFF6F6" pt="40px">
           <Container>
             <Box display="flex" justifyContent="space-between">
               <Box>
@@ -278,6 +278,212 @@ export const Landing = () => {
                 </Box>
               </Box>
               <img src="/landing_2.png" alt="men" />
+            </Box>
+            <Box pt="64px">
+              <Typography
+                textAlign="center"
+                fontSize="50px"
+                fontWeight="bold"
+                color="#191A15"
+              >
+                Choose Plan <br /> That&apos;s Right For You
+              </Typography>
+              <Box pt="50px" display="flex" gap="30px" alignItems="center">
+                <Box
+                  width="33%"
+                  display="flex"
+                  flexDirection="column"
+                  alignItems="center"
+                  bgcolor="#FFFFFF"
+                  borderRadius="20px"
+                  p="20px"
+                  boxShadow="0px 4px 4px rgba(0, 0, 0, 0.25)"
+                >
+                  <Typography
+                    fontSize="30px"
+                    fontWeight="bold"
+                    color="#191A15"
+                    mt="40px"
+                  >
+                    Free
+                  </Typography>
+                  <Typography
+                    textAlign="center"
+                    fontSize="16px"
+                    color="#A6A6A6"
+                    mt="10px"
+                  >
+                    Have a go and test your
+                    <br />
+                    superpowers
+                  </Typography>
+                  <Typography fontSize="50px" color="#191A15" mt="13px">
+                    0$
+                  </Typography>
+                  <Box
+                    width="100%"
+                    borderRadius="10px"
+                    bgcolor="#F9FAFB"
+                    p="40px"
+                    display="flex"
+                    flexDirection="column"
+                    gap="20px"
+                    boxSizing="border-box"
+                  >
+                    <CheckMark text="1 Account" />
+                    <CheckMark text="Water Intake Tracking" />
+                    <CheckMark text="Public Share & Comments" />
+                    <CheckMark text="Support Through Email " />
+                    <CheckMark text="Free Recipes" />
+                    <Button
+                      sx={{
+                        bgcolor: "white",
+                        textTransform: "none",
+                        boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
+                        borderRadius: "20px",
+                        height: "64px",
+                      }}
+                      size="large"
+                    >
+                      Signup for free
+                    </Button>
+                  </Box>
+                </Box>
+                <Box
+                  width="33%"
+                  display="flex"
+                  flexDirection="column"
+                  alignItems="center"
+                  bgcolor="#54BD95"
+                  borderRadius="20px"
+                  p="20px"
+                  boxShadow="0px 4px 4px rgba(0, 0, 0, 0.25)"
+                >
+                  <Typography
+                    fontSize="30px"
+                    fontWeight="bold"
+                    color="#FFFFFF"
+                    mt="40px"
+                  >
+                    Pro
+                  </Typography>
+                  <Typography
+                    textAlign="center"
+                    fontSize="16px"
+                    color="#FFFFFF"
+                    mt="10px"
+                  >
+                    Experiment the power
+                    <br />
+                    of infinite possibilities
+                  </Typography>
+                  <Typography fontSize="50px" color="#FFFFFF" mt="13px">
+                    8$
+                  </Typography>
+                  <Typography
+                    bgcolor="#85DAB9"
+                    color="#FFFFFF"
+                    p="10px"
+                    fontWeight="bold"
+                    borderRadius="10px"
+                  >
+                    Save $50 a year
+                  </Typography>
+                  <Box
+                    width="100%"
+                    borderRadius="10px"
+                    bgcolor="#F9FAFB"
+                    p="40px"
+                    display="flex"
+                    flexDirection="column"
+                    gap="20px"
+                    mt="10px"
+                    boxSizing="border-box"
+                  >
+                    <CheckMark text="1 Account" />
+                    <CheckMark text="All Feature of Free Plan" />
+                    <CheckMark text="All App Features" />
+                    <CheckMark text="Support Through a Live Chat" />
+                    <CheckMark text="All Recipes" />
+                    <Button
+                      sx={{
+                        bgcolor: "#54BD95",
+                        color: "white",
+                        textTransform: "none",
+                        ":hover": {
+                          bgcolor: "#85DAB9",
+                        },
+                        boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
+                        borderRadius: "20px",
+                        height: "64px",
+                      }}
+                      size="large"
+                    >
+                      Go to pro
+                    </Button>
+                  </Box>
+                </Box>
+                <Box
+                  width="33%"
+                  display="flex"
+                  flexDirection="column"
+                  alignItems="center"
+                  bgcolor="#FFFFFF"
+                  borderRadius="20px"
+                  p="10px"
+                  boxShadow="0px 4px 4px rgba(0, 0, 0, 0.25)"
+                >
+                  <Typography
+                    fontSize="30px"
+                    fontWeight="bold"
+                    color="#191A15"
+                    mt="40px"
+                  >
+                    Business
+                  </Typography>
+                  <Typography
+                    textAlign="center"
+                    fontSize="16px"
+                    color="#A6A6A6"
+                    mt="10px"
+                  >
+                    Unveil new superpowers and
+                    <br />
+                    join NutriTrack
+                  </Typography>
+                  <Typography fontSize="50px" color="#191A15" mt="13px">
+                    16$
+                  </Typography>
+                  <Box
+                    width="100%"
+                    borderRadius="10px"
+                    bgcolor="#F9FAFB"
+                    p="40px"
+                    display="flex"
+                    flexDirection="column"
+                    gap="20px"
+                    boxSizing="border-box"
+                  >
+                    <CheckMark text="All the features of pro plan" />
+                    <CheckMark text="Unlimited accounts" />
+                    <CheckMark text="Improved security" />
+                    <CheckMark text="Company statistics" />
+                    <CheckMark text="Fastest Support" />
+                    <Button
+                      sx={{
+                        bgcolor: "white",
+                        textTransform: "none",
+                        boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
+                        borderRadius: "20px",
+                        height: "64px",
+                      }}
+                      size="large"
+                    >
+                      Goto Business
+                    </Button>
+                  </Box>
+                </Box>
+              </Box>
             </Box>
           </Container>
         </Box>
