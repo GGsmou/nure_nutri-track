@@ -37,7 +37,7 @@ public class CalorieNotesController : ControllerBase
     }
 
     [HttpPost("{userId}/{recepieId}")]
-    public async Task<IActionResult> Create([FromBody] CalorieNote calorieNote, [FromRoute] Guid userId, [FromQuery] Guid recepieId)
+    public async Task<IActionResult> Create([FromBody] CalorieNote calorieNote, [FromRoute] Guid userId, [FromRoute] Guid recepieId)
     {
         await _calorieNoteRepository.CreateAsync(calorieNote);
     
@@ -45,14 +45,14 @@ public class CalorieNotesController : ControllerBase
 
         if (user == null) return NotFound();
 
-        var userRecipe = await _userRecipeRepository.GetOneByPredicateAsync(
-            ur => ur.RecipeId == recepieId && ur.UserId == userId.ToString());
+        var userRecipe = new UserRecipe()
+        {
+            UserId = userId.ToString(),
+            RecipeId = recepieId,
+            CCalorieNoteId = calorieNote.Id
+        };
         
-        if (userRecipe == null) return NotFound();
-
-        userRecipe.CCalorieNoteId = calorieNote.Id;
-
-        await _userRecipeRepository.UpdateAsync(userRecipe);
+        await _userRecipeRepository.CreateAsync(userRecipe);
 
         return Ok(userRecipe);
     }

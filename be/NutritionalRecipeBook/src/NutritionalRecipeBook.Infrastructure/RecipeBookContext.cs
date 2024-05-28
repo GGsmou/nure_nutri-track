@@ -20,10 +20,8 @@ namespace NutritionalRecipeBook.Infrastructure
         public DbSet<UserRecipe> UserRecipes { get; set; }
 
         public DbSet<UserIngredient> UserIngredients { get; set; }
-        
-        public DbSet<UserHydration> UserHydrations { get; set; }
 
-        public DbSet<User> Users { get; set; }
+        public DbSet<UserHydration> UserHydrations { get; set; }
 
         public RecipeBookContext(DbContextOptions<RecipeBookContext> options) : base(options)
         {
