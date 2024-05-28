@@ -1,4 +1,8 @@
-import { PlayCircleOutline } from "@mui/icons-material";
+import {
+  DataUsageOutlined,
+  MonitorHeartOutlined,
+  PlayCircleOutline,
+} from "@mui/icons-material";
 import {
   Box,
   Button,
@@ -142,6 +146,112 @@ export const Landing = () => {
               >
                 More than 10,000 happy users
               </Typography>
+            </Box>
+          </Container>
+        </Box>
+        <Box height="360px" py="50px" boxSizing="border-box">
+          <Container>
+            <Box display="flex" gap="20px">
+              <Box
+                maxWidth="50%"
+                display="flex"
+                flexDirection="column"
+                justifyContent="space-between"
+              >
+                <Typography
+                  variant="h3"
+                  fontSize="50px"
+                  color="#191A15"
+                  fontWeight="semi-bold"
+                >
+                  Our key features
+                </Typography>
+                <Typography variant="body2" color="#A6A6A6">
+                  NutriTrack: Revolutionizing health management with a seamless
+                  SaaS experience, from tracking calories to optimizing
+                  nutrition.
+                </Typography>
+              </Box>
+              <Box
+                maxWidth="50%"
+                display="flex"
+                flexDirection="column"
+                gap="50px"
+              >
+                <Box display="flex" gap="24px">
+                  <Box
+                    style={{
+                      width: "60px",
+                      height: "60px",
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      backgroundColor: "white",
+                      flexShrink: 0,
+                      borderRadius: "5px",
+                      boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
+                    }}
+                  >
+                    <MonitorHeartOutlined
+                      sx={{
+                        width: "40px",
+                        height: "40px",
+                      }}
+                      color="primary"
+                    />
+                  </Box>
+                  <Box>
+                    <Typography
+                      variant="h5"
+                      color="black"
+                      fontWeight="bold"
+                      fontSize="26px"
+                    >
+                      Calories
+                    </Typography>
+                    <Typography variant="body2" color="#A6A6A6" fontSize="18px">
+                      Your personalized calorie companion, simplifying tracking,
+                      planning, and achieving your health goals effortlessly
+                    </Typography>
+                  </Box>
+                </Box>
+                <Box display="flex" gap="24px">
+                  <Box
+                    style={{
+                      width: "60px",
+                      height: "60px",
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      backgroundColor: "white",
+                      flexShrink: 0,
+                      borderRadius: "5px",
+                      boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
+                    }}
+                  >
+                    <DataUsageOutlined
+                      sx={{
+                        width: "40px",
+                        height: "40px",
+                      }}
+                      color="primary"
+                    />
+                  </Box>
+                  <Box>
+                    <Typography
+                      variant="h5"
+                      color="black"
+                      fontWeight="bold"
+                      fontSize="26px"
+                    >
+                      FitFlex
+                    </Typography>
+                    <Typography variant="body2" color="#A6A6A6" fontSize="18px">
+                      Your guide in world of exercise and fitness
+                    </Typography>
+                  </Box>
+                </Box>
+              </Box>
             </Box>
           </Container>
         </Box>
