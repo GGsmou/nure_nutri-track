@@ -1,48 +1,40 @@
-name: Сборка и развертывание приложения .NET Core в веб-приложение nutritrack
+name: Deploy ASP.NET Core app to Azure Web App
+
 on:
   push:
     branches:
-    - be-setup
+      - be-setup
+  pull_request:
+    branches:
+      - '*'
 env:
   AZURE_WEBAPP_NAME: nutritrack
-  AZURE_WEBAPP_PACKAGE_PATH: NutritionalRecipeBook.Api\publish
-  CONFIGURATION: Release
-  DOTNET_CORE_VERSION: 8.0.x
-  WORKING_DIRECTORY: NutritionalRecipeBook.Api
+  AZURE_WEBAPP_PACKAGE_PATH: be/NutritionalRecipeBook/src/NutritionalRecipeBook.Api/publish
+  WORKING_DIRECTORY: be/NutritionalRecipeBook/src/NutritionalRecipeBook.Api
+  DOTNET_VERSION: '8.x'             
+
 jobs:
-  build:
-    runs-on: windows-latest
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    environment: dev
     steps:
-    - uses: actions/checkout@v4
-    - name: Setup .NET SDK
-      uses: actions/setup-dotnet@v3
-      with:
-        dotnet-version: ${{ env.DOTNET_CORE_VERSION }}
-    - name: Restore
-      run: dotnet restore "${{ env.WORKING_DIRECTORY }}"
-    - name: Build
-      run: dotnet build "${{ env.WORKING_DIRECTORY }}" --configuration ${{ env.CONFIGURATION }} --no-restore
-    - name: Test
-      run: dotnet test "${{ env.WORKING_DIRECTORY }}" --no-build
-    - name: Publish
-      run: dotnet publish "${{ env.WORKING_DIRECTORY }}" --configuration ${{ env.CONFIGURATION }} --no-build --output "${{ env.AZURE_WEBAPP_PACKAGE_PATH }}"
-    - name: Publish Artifacts
-      uses: actions/upload-artifact@v3
-      with:
-        name: webapp
-        path: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
-  deploy:
-    runs-on: windows-latest
-    needs: build
-    steps:
-    - name: Download artifact from build job
-      uses: actions/download-artifact@v3
-      with:
-        name: webapp
-        path: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
-    - name: Deploy to Azure WebApp
-      uses: azure/webapps-deploy@v2
-      with:
-        app-name: ${{ env.AZURE_WEBAPP_NAME }}
-        publish-profile: ${{ secrets.nutritrack_12A5 }}
-        package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
+    
+      - uses: actions/checkout@v3
+
+      - name: Setup .NET Core
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }} 
+      
+      - name: dotnet build and publish
+        run: |
+          dotnet restore ${{ env.WORKING_DIRECTORY }}
+          dotnet build ${{ env.WORKING_DIRECTORY }} --configuration Release --no-restore
+          dotnet publish ${{ env.WORKING_DIRECTORY }} -c Release -o '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/myapp' 
+          
+      - name: 'Run Azure webapp deploy action using publish profile credentials'
+        uses: azure/webapps-deploy@v2
+        with: 
+          app-name: ${{ env.AZURE_WEBAPP_NAME }} 
+          publish-profile: <publishData><publishProfile profileName="nutritrack - Web Deploy" publishMethod="MSDeploy" publishUrl="nutritrack.scm.azurewebsites.net:443" msdeploySite="nutritrack" userName="$nutritrack" userPWD="x3ufnW9Ee30hhqZmzzCSp5Ch0diid2MfEpn8EgHcXrRE4F1vp5tkkteArvao" destinationAppUrl="https://nutritrack.azurewebsites.net" SQLServerDBConnectionString="" mySQLDBConnectionString="" hostingProviderForumLink="" controlPanelLink="https://portal.azure.com" webSystem="WebSites"><databases /></publishProfile><publishProfile profileName="nutritrack - FTP" publishMethod="FTP" publishUrl="ftps://waws-prod-plc-001.ftp.azurewebsites.windows.net/site/wwwroot" ftpPassiveMode="True" userName="nutritrack\$nutritrack" userPWD="x3ufnW9Ee30hhqZmzzCSp5Ch0diid2MfEpn8EgHcXrRE4F1vp5tkkteArvao" destinationAppUrl="https://nutritrack.azurewebsites.net" SQLServerDBConnectionString="" mySQLDBConnectionString="" hostingProviderForumLink="" controlPanelLink="https://portal.azure.com" webSystem="WebSites"><databases /></publishProfile><publishProfile profileName="nutritrack - Zip Deploy" publishMethod="ZipDeploy" publishUrl="nutritrack.scm.azurewebsites.net:443" userName="$nutritrack" userPWD="x3ufnW9Ee30hhqZmzzCSp5Ch0diid2MfEpn8EgHcXrRE4F1vp5tkkteArvao" destinationAppUrl="https://nutritrack.azurewebsites.net" SQLServerDBConnectionString="" mySQLDBConnectionString="" hostingProviderForumLink="" controlPanelLink="https://portal.azure.com" webSystem="WebSites"><databases /></publishProfile></publishData>
+          package: '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/myapp'
