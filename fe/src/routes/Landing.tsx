@@ -279,7 +279,7 @@ export const Landing = () => {
               </Box>
               <img src="/landing_2.png" alt="men" />
             </Box>
-            <Box pt="64px">
+            <Box pt="64px" pb="70px">
               <Typography
                 textAlign="center"
                 fontSize="50px"
@@ -485,6 +485,56 @@ export const Landing = () => {
                 </Box>
               </Box>
             </Box>
+          </Container>
+        </Box>
+        <Box bgcolor="#161C28" pt="10px" pb="10px">
+          <Container>
+            <Typography
+              fontWeight="bold"
+              fontSize="50px"
+              color="white"
+              textAlign="center"
+            >
+              People are Saying About NutriTrack
+            </Typography>
+            <Box display="flex" mt="50px" justifyContent="space-between">
+              <Box width="40%">
+                <Typography color="#A6A6A6" fontSize="16px">
+                  NutriTrack has been a game-changer for my daily health
+                  routine! The user-friendly interface made it a breeze to set
+                  goals and track my progress. I especially love the hydration
+                  reminders—they&apos;ve ensured I drink enough water throughout
+                  the day. Highly recommended for anyone serious about improving
+                  their wellness!
+                </Typography>
+                <Box display="flex" gap="20px" alignItems="center" mt="20px">
+                  <img src="/landing_3.png" alt="Andrew" />
+                  <Typography color="#A6A6A6">Andrew Fishermann</Typography>
+                </Box>
+              </Box>
+              <Box width="40%">
+                <Typography color="#A6A6A6" fontSize="16px">
+                  I&apos;m genuinely impressed with NutriTrack! The seamless
+                  integration with my fitness wearables allows me to keep all my
+                  health data in one place. The recipe collection feature is a
+                  delightful bonus, making healthy eating easier and more
+                  enjoyable. This app has become my go-to for a healthier
+                  lifestyle!
+                </Typography>
+                <Box display="flex" gap="20px" alignItems="center" mt="20px">
+                  <img src="/landing_4.png" alt="Andrew" />
+                  <Typography color="#A6A6A6">Emiliano Curtosi</Typography>
+                </Box>
+              </Box>
+            </Box>
+            <Typography
+              fontSize="16px"
+              color="white"
+              textAlign="center"
+              mt="120px"
+            >
+              © 2024 NutriTrack Inc. Copyright and rights reserved
+            </Typography>
           </Container>
         </Box>
       </div>
