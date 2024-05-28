@@ -270,86 +270,11 @@ export const Landing = () => {
                   What Benefit Will You Get
                 </Typography>
                 <Box display="flex" flexDirection="column" gap="30px" mt="40px">
-                  <Box display="flex" alignItems="center" gap="10px">
-                    <CheckCircle
-                      color="primary"
-                      sx={{
-                        width: "32px",
-                        height: "32px",
-                      }}
-                    />
-                    <Typography
-                      fontSize="18px"
-                      fontWeight="medium"
-                      color="#191A15"
-                    >
-                      Calorie Tracking
-                    </Typography>
-                  </Box>
-                  <Box display="flex" alignItems="center" gap="10px">
-                    <CheckCircle
-                      color="primary"
-                      sx={{
-                        width: "32px",
-                        height: "32px",
-                      }}
-                    />
-                    <Typography
-                      fontSize="18px"
-                      fontWeight="medium"
-                      color="#191A15"
-                    >
-                      Meal Planning
-                    </Typography>
-                  </Box>
-                  <Box display="flex" alignItems="center" gap="10px">
-                    <CheckCircle
-                      color="primary"
-                      sx={{
-                        width: "32px",
-                        height: "32px",
-                      }}
-                    />
-                    <Typography
-                      fontSize="18px"
-                      fontWeight="medium"
-                      color="#191A15"
-                    >
-                      Water Intake
-                    </Typography>
-                  </Box>
-                  <Box display="flex" alignItems="center" gap="10px">
-                    <CheckCircle
-                      color="primary"
-                      sx={{
-                        width: "32px",
-                        height: "32px",
-                      }}
-                    />
-                    <Typography
-                      fontSize="18px"
-                      fontWeight="medium"
-                      color="#191A15"
-                    >
-                      Exercise integration
-                    </Typography>
-                  </Box>
-                  <Box display="flex" alignItems="center" gap="10px">
-                    <CheckCircle
-                      color="primary"
-                      sx={{
-                        width: "32px",
-                        height: "32px",
-                      }}
-                    />
-                    <Typography
-                      fontSize="18px"
-                      fontWeight="medium"
-                      color="#191A15"
-                    >
-                      Deep statistics
-                    </Typography>
-                  </Box>
+                  <CheckMark text="Calorie Tracking" />
+                  <CheckMark text="Meal Planning" />
+                  <CheckMark text="Water Intake" />
+                  <CheckMark text="Exercise integration" />
+                  <CheckMark text="Deep statistics" />
                 </Box>
               </Box>
               <img src="/landing_2.png" alt="men" />
@@ -358,5 +283,22 @@ export const Landing = () => {
         </Box>
       </div>
     </ThemeProvider>
+  );
+};
+
+const CheckMark = ({ text }: { text: string }) => {
+  return (
+    <Box display="flex" alignItems="center" gap="10px">
+      <CheckCircle
+        color="primary"
+        sx={{
+          width: "32px",
+          height: "32px",
+        }}
+      />
+      <Typography fontSize="18px" fontWeight="medium" color="#191A15">
+        {text}
+      </Typography>
+    </Box>
   );
 };
