@@ -14,7 +14,7 @@ export const useWaterNoteCreate = (
 ) => {
   return useMutation((data: WaterNote) => {
     if (filter.type === "edit") {
-      return fetchAbstract("water-notes/" + filter.data.id, "PATCH", data);
+      return fetchAbstract("water-notes/" + filter.data.id, "PUT", data);
     }
 
     return fetchAbstract("water-notes/", "POST", data);

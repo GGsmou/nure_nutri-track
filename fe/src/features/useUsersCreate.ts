@@ -14,7 +14,7 @@ export const useUsersCreate = (
 ) => {
   return useMutation((data: UserType) => {
     if (filter.type === "edit") {
-      return fetchAbstract("users/" + filter.data.id, "PATCH", data);
+      return fetchAbstract("users/" + filter.data.id, "PUT", data);
     }
 
     return fetchAbstract("users/", "POST", data);

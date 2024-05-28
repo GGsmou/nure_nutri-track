@@ -14,7 +14,7 @@ export const useExercisesCreate = (
 ) => {
   return useMutation((data: Exercise) => {
     if (filter.type === "edit") {
-      return fetchAbstract("exercises/" + filter.data.id, "PATCH", data);
+      return fetchAbstract("exercises/" + filter.data.id, "PUT", data);
     }
 
     return fetchAbstract("exercises/", "POST", data);
