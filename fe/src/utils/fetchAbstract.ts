@@ -11,6 +11,7 @@ export const fetchAbstract = async (
       "Content-Type": "application/json",
     },
     body: JSON.stringify(body),
+    // mode: "no-cors",
   });
 
   if (!response.ok) {

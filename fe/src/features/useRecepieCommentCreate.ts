@@ -4,6 +4,6 @@ import { RecepieComment } from "../types/RecepieComment";
 
 export const useRecepieCommentCreate = () => {
   return useMutation((data: RecepieComment) => {
-    return fetchAbstract("recepie-comments/", "POST", data);
+    return fetchAbstract("RecipeComment/", "POST", data);
   });
 };

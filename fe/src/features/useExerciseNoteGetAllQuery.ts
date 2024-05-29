@@ -13,7 +13,7 @@ export const useExerciseNoteGetAllQuery = (filter: {
     queryKey: ["exercises-notes", filter],
     queryFn: async () => {
       return (await fetchAbstract(
-        urlBuilder("exercises-notes/", filter),
+        urlBuilder("ExercisesNotes/", filter),
         "GET",
       )) as ExercisesNote[];
     },

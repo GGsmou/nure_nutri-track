@@ -13,7 +13,7 @@ export const useCalorieNoteGetAllQuery = (filter: {
     queryKey: ["calories-note", filter],
     queryFn: async () => {
       return (await fetchAbstract(
-        urlBuilder("calories", filter),
+        urlBuilder("CalorieNotes", filter),
         "GET",
       )) as CalorieNote[];
     },

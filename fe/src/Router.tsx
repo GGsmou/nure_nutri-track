@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Routes, Route, HashRouter } from "react-router-dom";
 import App from "./App";
 
 import { QueryClient, QueryClientProvider } from "react-query";
@@ -24,7 +24,7 @@ const queryClient = new QueryClient();
 const Router = () => {
   return (
     <QueryClientProvider client={queryClient}>
-      <BrowserRouter basename="/nure_nutri-track">
+      <HashRouter>
         <Routes>
           <Route path="/landing" element={<Landing />} />
           <Route path="/" element={<App />}>
@@ -66,8 +66,10 @@ const Router = () => {
 
             <Route path="stats" element={<CompanyStats />} />
           </Route>
+
+          <Route path="*" element={<>404</>} />
         </Routes>
-      </BrowserRouter>
+      </HashRouter>
     </QueryClientProvider>
   );
 };

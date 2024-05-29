@@ -4,8 +4,8 @@ import { fetchAbstract } from "../utils/fetchAbstract";
 export const useUserDoneAchievement = () => {
   return useMutation((data: { id: string; achievement: string }) => {
     return fetchAbstract(
-      "users/" + data.id + "?achievementToComplete=" + data.achievement,
-      "PUT",
+      "Users/" + data.id + "?achievementToComplete=" + data.achievement,
+      "PATCH",
     );
   });
 };
