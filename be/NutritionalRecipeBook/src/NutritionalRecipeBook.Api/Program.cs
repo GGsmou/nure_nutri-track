@@ -18,7 +18,6 @@ builder.Services.AddControllers().AddJsonOptions(x =>
 
 builder.AddServices(config);
 
-
 builder.Services.AddIdentity<User, IdentityRole>(options =>
 {
     options.Password.RequiredLength = 5;
@@ -39,14 +38,12 @@ builder.Services.ConfigureApplicationCookie(options =>
     };
 });
 
-
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
     options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
     options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
 })
-
     .AddJwtBearer(options =>
     {
         options.TokenValidationParameters = new()
@@ -60,7 +57,6 @@ builder.Services.AddAuthentication(options =>
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config.GetSection("JwtSettings")["Key"]!))
         };
     });
-
 
 builder.AddApplicationLogging(config);
 
@@ -101,6 +97,13 @@ app.UseCors(builder =>
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+// Add middleware to append the Access-Control-Allow-Origin header
+app.Use(async (context, next) =>
+{
+    context.Response.Headers.Append("Access-Control-Allow-Origin", "*");
+    await next.Invoke();
+});
 
 app.MapControllers();
 
