@@ -13,10 +13,7 @@ export const useExercisesCreate = (
       },
 ) => {
   return useMutation((data: Exercise) => {
-    if (filter.type === "edit") {
-      return fetchAbstract("Exercises/" + filter.data.id, "POST", data);
-    }
-
-    return fetchAbstract("Exercises/", "POST", data);
+    const type = filter.type === "edit" ? "PUT" : "POST";
+    return fetchAbstract("Exercises/", type, data);
   });
 };

@@ -9,7 +9,7 @@ _Checked - to test. Crossed - done_
 _to test when BE is ready_
 
 - [x] CaloriesNotes for the day
-- [x] Exercises crud(Admin)
+- [x] ~~Exercises crud(Admin)~~
 - [x] ExercisesNotes crud
 - [x] Water crud
 - [x] User crud(Admin)

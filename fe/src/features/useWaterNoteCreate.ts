@@ -13,10 +13,7 @@ export const useWaterNoteCreate = (
       },
 ) => {
   return useMutation((data: WaterNote) => {
-    if (filter.type === "edit") {
-      return fetchAbstract("WaterNote/" + filter.data.id, "PUT", data);
-    }
-
-    return fetchAbstract("WaterNote/", "POST", data);
+    const type = filter.type === "edit" ? "PUT" : "POST";
+    return fetchAbstract("WaterNote/", type, data);
   });
 };
