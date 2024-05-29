@@ -89,7 +89,7 @@ app.UseSerilogRequestLogging();
 app.UseCors(builder =>
 {
     builder
-        .WithOrigins("https://nutritrack.azurewebsites.net", "https://ggsmou.github.io/nure_nutri-track", "http://localhost:5173")
+        .WithOrigins("https://nutritrack.azurewebsites.net", "https://ggsmou.github.io", "http://localhost:5173")
         .AllowAnyMethod()
         .AllowAnyHeader()
         .AllowCredentials();
