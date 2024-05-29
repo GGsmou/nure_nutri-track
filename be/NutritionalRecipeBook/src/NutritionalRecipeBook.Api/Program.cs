@@ -93,7 +93,7 @@ app.UseSerilogRequestLogging();
 app.UseCors(builder =>
 {
     builder
-        .WithOrigins()
+        .WithOrigins("https://nutritrack.azurewebsites.net")
         .AllowAnyMethod()
         .AllowAnyHeader()
         .AllowCredentials();
