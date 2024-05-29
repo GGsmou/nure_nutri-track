@@ -14,6 +14,7 @@ namespace NutritionalRecipeBook.Application.Services
         private readonly IGenericRepository<UserRecipe> _userRecipeRepository;
 
         private readonly IGenericRepository<UserIngredient> _userIngredientRepository;
+        private readonly IGenericRepository<UserType> _userTypeRepository;
 
         private readonly IRecipeRepository _recipeRepository;
 
@@ -23,12 +24,14 @@ namespace NutritionalRecipeBook.Application.Services
 
         public UserService(IGenericRepository<UserRecipe> userRecipeRepository,
             IGenericRepository<UserIngredient> userIngredientRepository,
+            IGenericRepository<UserType> userTypeRepository,
             IRecipeRepository recipeRepository,
             IMapper mapper,
             IIdentityService identityService)
         {
             _userRecipeRepository = userRecipeRepository;
             _userIngredientRepository = userIngredientRepository;
+            _userTypeRepository = userTypeRepository;
             _recipeRepository = recipeRepository;
             _mapper = mapper;
             _identityService = identityService;
@@ -37,13 +40,15 @@ namespace NutritionalRecipeBook.Application.Services
         public async Task<Result<GetUserResonse>> GetById(string id)
         {
             var user = await _identityService.GetUserByIdWithRelationsAsync(id);
-
+            var userType = await _userTypeRepository.GetOneByPredicateAsync(u => u.UserId == id);
+            
             if (user is null)
             {
                 return Result<GetUserResonse>.Failure(new Error("404", "Such user doesn't exist"));
             }
 
             var response = _mapper.Map<GetUserResonse>(user);
+            response.UserType = userType;
 
             return Result<GetUserResonse>.Success(response);
         }
