@@ -56,15 +56,17 @@ export const Landing = () => {
                     display: "flex",
                   }}
                 >
-                  <Button
-                    sx={{
-                      color: "black",
-                      textTransform: "none",
-                    }}
-                    size="large"
-                  >
-                    Home
-                  </Button>
+                  <Link to="/">
+                    <Button
+                      sx={{
+                        color: "black",
+                        textTransform: "none",
+                      }}
+                      size="large"
+                    >
+                      Home
+                    </Button>
+                  </Link>
                   <Button
                     sx={{
                       color: "black",
@@ -115,16 +117,18 @@ export const Landing = () => {
                   Empowering your health, one calorie at a time
                 </Typography>
                 <Box sx={{ display: "flex", gap: "70px" }}>
-                  <Button
-                    size="large"
-                    variant="contained"
-                    sx={{
-                      color: "white",
-                      textTransform: "none",
-                    }}
-                  >
-                    Try now
-                  </Button>
+                  <Link to="/auth">
+                    <Button
+                      size="large"
+                      variant="contained"
+                      sx={{
+                        color: "white",
+                        textTransform: "none",
+                      }}
+                    >
+                      Try now
+                    </Button>
+                  </Link>
                   <Button
                     startIcon={<PlayCircleOutline />}
                     size="large"
@@ -335,18 +339,26 @@ export const Landing = () => {
                     <CheckMark text="Public Share & Comments" />
                     <CheckMark text="Support Through Email " />
                     <CheckMark text="Free Recipes" />
-                    <Button
-                      sx={{
-                        bgcolor: "white",
-                        textTransform: "none",
-                        boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
-                        borderRadius: "20px",
-                        height: "64px",
+                    <Link
+                      to="/auth"
+                      style={{
+                        width: "100%",
                       }}
-                      size="large"
                     >
-                      Signup for free
-                    </Button>
+                      <Button
+                        sx={{
+                          bgcolor: "white",
+                          textTransform: "none",
+                          boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
+                          borderRadius: "20px",
+                          height: "64px",
+                          width: "100%",
+                        }}
+                        size="large"
+                      >
+                        Signup for free
+                      </Button>
+                    </Link>
                   </Box>
                 </Box>
                 <Box
@@ -405,22 +417,30 @@ export const Landing = () => {
                     <CheckMark text="All App Features" />
                     <CheckMark text="Support Through a Live Chat" />
                     <CheckMark text="All Recipes" />
-                    <Button
-                      sx={{
-                        bgcolor: "#54BD95",
-                        color: "white",
-                        textTransform: "none",
-                        ":hover": {
-                          bgcolor: "#85DAB9",
-                        },
-                        boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
-                        borderRadius: "20px",
-                        height: "64px",
+                    <Link
+                      to="/payment"
+                      style={{
+                        width: "100%",
                       }}
-                      size="large"
                     >
-                      Go to pro
-                    </Button>
+                      <Button
+                        sx={{
+                          bgcolor: "#54BD95",
+                          color: "white",
+                          textTransform: "none",
+                          ":hover": {
+                            bgcolor: "#85DAB9",
+                          },
+                          boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
+                          borderRadius: "20px",
+                          height: "64px",
+                          width: "100%",
+                        }}
+                        size="large"
+                      >
+                        Go to pro
+                      </Button>
+                    </Link>
                   </Box>
                 </Box>
                 <Box
@@ -469,18 +489,26 @@ export const Landing = () => {
                     <CheckMark text="Improved security" />
                     <CheckMark text="Company statistics" />
                     <CheckMark text="Fastest Support" />
-                    <Button
-                      sx={{
-                        bgcolor: "white",
-                        textTransform: "none",
-                        boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
-                        borderRadius: "20px",
-                        height: "64px",
+                    <Link
+                      to="/payment"
+                      style={{
+                        width: "100%",
                       }}
-                      size="large"
                     >
-                      Goto Business
-                    </Button>
+                      <Button
+                        sx={{
+                          bgcolor: "white",
+                          textTransform: "none",
+                          boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
+                          borderRadius: "20px",
+                          height: "64px",
+                          width: "100%",
+                        }}
+                        size="large"
+                      >
+                        Goto Business
+                      </Button>
+                    </Link>
                   </Box>
                 </Box>
               </Box>
