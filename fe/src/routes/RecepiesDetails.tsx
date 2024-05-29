@@ -10,6 +10,7 @@ import { useRecepieCommentsGetAllQuery } from "../features/useRecepieCommentsGet
 import { ArrowDownward, ArrowUpward, Star } from "@mui/icons-material";
 import { useRecepieChangeVote } from "../features/useRecepieChangeVote";
 import { useUserDoneAchievement } from "../features/useUserDoneAchievement";
+import { Recepie } from "../types/Recepie";
 
 const RecepiesDetails = () => {
   const user = useContext(UserContext);
@@ -20,7 +21,7 @@ const RecepiesDetails = () => {
       }
     : {};
   const items = useRecepieGetAllQuery(filter);
-  const item = items.data;
+  const item = items.data as unknown as Recepie;
 
   const [error, setError] = useState<string>("");
 
