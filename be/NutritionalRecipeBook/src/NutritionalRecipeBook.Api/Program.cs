@@ -93,7 +93,7 @@ app.UseSerilogRequestLogging();
 app.UseCors(builder =>
 {
     builder
-        .WithOrigins("https://ggsmou.github.io")
+        .WithOrigins()
         .AllowAnyMethod()
         .AllowAnyHeader()
         .AllowCredentials();
