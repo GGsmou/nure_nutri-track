@@ -122,4 +122,26 @@ public class UserTypesController : ControllerBase
 
         return Ok($"({id}) deleted");
     }
+    
+    [HttpPatch("{id}")]
+    public async Task<IActionResult> Patch(Guid id, [FromBody] string name)
+    {
+        var userType = await _userTypeRepository.GetByIdAsync(id);
+
+        if (userType == null) return NotFound();
+        
+        var property = typeof(UserType).GetProperties()
+            .FirstOrDefault(p => string.Equals(p.Name, name, StringComparison.OrdinalIgnoreCase));
+
+        if (property == null || property.PropertyType != typeof(bool))
+        {
+            return BadRequest("Invalid property name or property is not of type bool.");
+        }
+
+        property.SetValue(userType, true);
+        
+        await _userTypeRepository.UpdateAsync(userType);
+        
+        return Ok(userType);
+    }
 }

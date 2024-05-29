@@ -19,20 +19,20 @@ public class UserType : BaseEntity
     public double Weight { get; set; }
     
     public double DesiredWeight { get; set; }
+
+    public bool Hydrated { get; set; } = false;
     
-    public bool Hydrated { get; set; }
+    public bool Exercised { get; set; } = false;
     
-    public bool Exercised { get; set; }
+    public bool AteHealthy { get; set; } = false;
     
-    public bool AteHealthy { get; set; }
+    public bool Chef { get; set; } = false;
     
-    public bool Chef { get; set; }
+    public bool Critic { get; set; } = false;
     
-    public bool Critic { get; set; }
+    public bool CriticTwoPointO { get; set; } = false;
     
-    public bool CriticTwoPointO { get; set; }
-    
-    public bool Social { get; set; }
+    public bool Social { get; set; } = false;
 }
 
 public enum Role
