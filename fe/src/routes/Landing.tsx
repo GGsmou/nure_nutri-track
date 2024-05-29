@@ -141,7 +141,7 @@ export const Landing = () => {
                   </Button>
                 </Box>
               </Box>
-              <img src="/landing_1.png" alt="calories" />
+              <img src="/nure_nutri-track/landing_1.png" alt="calories" />
             </Box>
             <Box mt="90px">
               <Typography
@@ -281,7 +281,7 @@ export const Landing = () => {
                   <CheckMark text="Deep statistics" />
                 </Box>
               </Box>
-              <img src="/landing_2.png" alt="men" />
+              <img src="/nure_nutri-track/landing_2.png" alt="men" />
             </Box>
             <Box pt="64px" pb="70px">
               <Typography
@@ -536,7 +536,7 @@ export const Landing = () => {
                   their wellness!
                 </Typography>
                 <Box display="flex" gap="20px" alignItems="center" mt="20px">
-                  <img src="/landing_3.png" alt="Andrew" />
+                  <img src="/nure_nutri-track/landing_3.png" alt="Andrew" />
                   <Typography color="#A6A6A6">Andrew Fishermann</Typography>
                 </Box>
               </Box>
@@ -550,7 +550,7 @@ export const Landing = () => {
                   lifestyle!
                 </Typography>
                 <Box display="flex" gap="20px" alignItems="center" mt="20px">
-                  <img src="/landing_4.png" alt="Andrew" />
+                  <img src="/nure_nutri-track/landing_4.png" alt="Andrew" />
                   <Typography color="#A6A6A6">Emiliano Curtosi</Typography>
                 </Box>
               </Box>
