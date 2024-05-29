@@ -2,7 +2,6 @@ import {
   CheckCircle,
   DataUsageOutlined,
   MonitorHeartOutlined,
-  PlayCircleOutline,
 } from "@mui/icons-material";
 import {
   Box,
