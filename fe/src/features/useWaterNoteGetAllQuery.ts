@@ -13,7 +13,7 @@ export const useWaterNoteGetAllQuery = (filter: {
     queryKey: ["water-note", filter],
     queryFn: async () => {
       return (await fetchAbstract(
-        urlBuilder("water-notes", filter),
+        urlBuilder("WaterNote", filter),
         "GET",
       )) as WaterNote[];
     },

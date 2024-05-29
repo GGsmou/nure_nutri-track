@@ -3,6 +3,6 @@ import { fetchAbstract } from "../utils/fetchAbstract";
 
 export const useCalorieNoteDelete = () => {
   return useMutation((data: { id: number }) => {
-    return fetchAbstract("calories/" + data.id, "DELETE");
+    return fetchAbstract("CalorieNotes/" + data.id, "DELETE");
   });
 };

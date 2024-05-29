@@ -8,7 +8,7 @@ export const useExerciseGetAllQuery = (filter: { id?: string }) => {
     queryKey: ["exercises", filter],
     queryFn: async () => {
       return (await fetchAbstract(
-        urlBuilder("exercises", filter),
+        urlBuilder("Exercises", filter),
         "GET",
       )) as Exercise[];
     },

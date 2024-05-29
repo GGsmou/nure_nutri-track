@@ -3,6 +3,6 @@ import { fetchAbstract } from "../utils/fetchAbstract";
 
 export const useWaterNoteDelete = () => {
   return useMutation((data: { id: number }) => {
-    return fetchAbstract("water-notes/" + data.id, "DELETE");
+    return fetchAbstract("WaterNote/" + data.id, "DELETE");
   });
 };

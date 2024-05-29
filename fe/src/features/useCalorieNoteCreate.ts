@@ -14,9 +14,9 @@ export const useCalorieNoteCreate = (
 ) => {
   return useMutation((data: CalorieNote) => {
     if (filter.type === "edit") {
-      return fetchAbstract("calories/" + filter.data.id, "PUT", data);
+      return fetchAbstract("CalorieNotes/" + filter.data.id, "PUT", data);
     }
 
-    return fetchAbstract("calories/", "POST", data);
+    return fetchAbstract("CalorieNotes/", "POST", data);
   });
 };
