@@ -1,4 +1,4 @@
-name: Deploy ASP.NET Core app to Azure Web App
+name: Deploy ASP.NET Core app to Azure Webb App
 
 on:
   push:
@@ -11,30 +11,29 @@ env:
   AZURE_WEBAPP_NAME: nutritrack
   AZURE_WEBAPP_PACKAGE_PATH: be/NutritionalRecipeBook/src/NutritionalRecipeBook.Api/publish
   WORKING_DIRECTORY: be/NutritionalRecipeBook/src/NutritionalRecipeBook.Api
-  DOTNET_VERSION: '8.x'             
+  DOTNET_VERSION: '8.x'
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     environment: dev
     steps:
-    
       - uses: actions/checkout@v3
 
       - name: Setup .NET Core
         uses: actions/setup-dotnet@v1
         with:
-          dotnet-version: ${{ env.DOTNET_VERSION }} 
-      
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+
       - name: dotnet build and publish
         run: |
           dotnet restore ${{ env.WORKING_DIRECTORY }}
           dotnet build ${{ env.WORKING_DIRECTORY }} --configuration Release --no-restore
-          dotnet publish ${{ env.WORKING_DIRECTORY }} -c Release -o '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/myapp' 
-          
+          dotnet publish ${{ env.WORKING_DIRECTORY }} -c Release -o '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/myapp'
+
       - name: 'Run Azure webapp deploy action using publish profile credentials'
         uses: azure/webapps-deploy@v2
-        with: 
-          app-name: ${{ env.AZURE_WEBAPP_NAME }} 
+        with:
+          app-name: ${{ env.AZURE_WEBAPP_NAME }}
           publish-profile: <publishData><publishProfile profileName="nutritrack - Web Deploy" publishMethod="MSDeploy" publishUrl="nutritrack.scm.azurewebsites.net:443" msdeploySite="nutritrack" userName="$nutritrack" userPWD="x3ufnW9Ee30hhqZmzzCSp5Ch0diid2MfEpn8EgHcXrRE4F1vp5tkkteArvao" destinationAppUrl="https://nutritrack.azurewebsites.net" SQLServerDBConnectionString="" mySQLDBConnectionString="" hostingProviderForumLink="" controlPanelLink="https://portal.azure.com" webSystem="WebSites"><databases /></publishProfile><publishProfile profileName="nutritrack - FTP" publishMethod="FTP" publishUrl="ftps://waws-prod-plc-001.ftp.azurewebsites.windows.net/site/wwwroot" ftpPassiveMode="True" userName="nutritrack\$nutritrack" userPWD="x3ufnW9Ee30hhqZmzzCSp5Ch0diid2MfEpn8EgHcXrRE4F1vp5tkkteArvao" destinationAppUrl="https://nutritrack.azurewebsites.net" SQLServerDBConnectionString="" mySQLDBConnectionString="" hostingProviderForumLink="" controlPanelLink="https://portal.azure.com" webSystem="WebSites"><databases /></publishProfile><publishProfile profileName="nutritrack - Zip Deploy" publishMethod="ZipDeploy" publishUrl="nutritrack.scm.azurewebsites.net:443" userName="$nutritrack" userPWD="x3ufnW9Ee30hhqZmzzCSp5Ch0diid2MfEpn8EgHcXrRE4F1vp5tkkteArvao" destinationAppUrl="https://nutritrack.azurewebsites.net" SQLServerDBConnectionString="" mySQLDBConnectionString="" hostingProviderForumLink="" controlPanelLink="https://portal.azure.com" webSystem="WebSites"><databases /></publishProfile></publishData>
           package: '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/myapp'

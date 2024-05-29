@@ -14,9 +14,9 @@ export const useRecepieCreate = (
 ) => {
   return useMutation((data: Recepie) => {
     if (filter.type === "edit") {
-      return fetchAbstract("recepies/" + filter.data.id, "PUT", data);
+      return fetchAbstract("Recipes/" + filter.data.id, "PUT", data);
     }
 
-    return fetchAbstract("recepies/", "POST", data);
+    return fetchAbstract("Recipes/", "POST", data);
   });
 };

@@ -11,7 +11,7 @@ export const useRecepieCommentsGetAllQuery = (filter: {
     queryKey: ["recepie-comments", filter],
     queryFn: async () => {
       return (await fetchAbstract(
-        urlBuilder("recepie-comments", filter),
+        urlBuilder("RecipeComment", filter),
         "GET",
       )) as RecepieComment[];
     },
