@@ -129,16 +129,6 @@ export const Landing = () => {
                       Try now
                     </Button>
                   </Link>
-                  <Button
-                    startIcon={<PlayCircleOutline />}
-                    size="large"
-                    sx={{
-                      color: "black",
-                      textTransform: "none",
-                    }}
-                  >
-                    About us
-                  </Button>
                 </Box>
               </Box>
               <img src="/nure_nutri-track/landing_1.png" alt="calories" />
@@ -169,6 +159,7 @@ export const Landing = () => {
                   fontSize="50px"
                   color="#191A15"
                   fontWeight="semi-bold"
+                  id="about"
                 >
                   Our key features
                 </Typography>
