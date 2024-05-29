@@ -3,7 +3,7 @@ name: Deploy ASP.NET Core app to Azure Webb App
 on:
   push:
     branches:
-      - be-setup
+      - main
   pull_request:
     branches:
       - '*'

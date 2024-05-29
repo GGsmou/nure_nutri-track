@@ -17,6 +17,7 @@ import RecepiesAdd from "./routes/RecepiesAdd";
 import RecepiesDetails from "./routes/RecepiesDetails";
 import UsersSettings from "./routes/UsersSettings";
 import CompanyStats from "./routes/CompanyStats";
+import { Landing } from "./routes/Landing";
 
 const queryClient = new QueryClient();
 
@@ -25,6 +26,7 @@ const Router = () => {
     <QueryClientProvider client={queryClient}>
       <HashRouter>
         <Routes>
+          <Route path="/landing" element={<Landing />} />
           <Route path="/" element={<App />}>
             <Route index element={<>Welcome to NutriTrack</>} />
             <Route path="*" element={<>404</>} />

@@ -8,7 +8,7 @@ export const useUserGetAllQuery = (filter: { id?: string }) => {
     queryKey: ["users", filter],
     queryFn: async () => {
       return (await fetchAbstract(
-        urlBuilder("Users", filter),
+        urlBuilder("UserTypes", filter),
         "GET",
       )) as UserType[];
     },
