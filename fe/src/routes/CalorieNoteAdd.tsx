@@ -16,6 +16,7 @@ import { UserContext } from "../components/Fallback";
 import { formatDateToYYYYMMDD } from "../utils/parseDate";
 import { useUserGetAllQuery } from "../features/useUserGetAllQuery";
 import { useUserDoneAchievement } from "../features/useUserDoneAchievement";
+import { getId } from "../utils/getId";
 
 const CalorieNoteAdd = () => {
   const user = useContext(UserContext);
@@ -27,7 +28,7 @@ const CalorieNoteAdd = () => {
       }
     : {};
   const items = useCalorieNoteGetAllQuery(filter);
-  const item = items.data?.[0];
+  const item = items.data as unknown as CalorieNote;
   const [error, setError] = useState<string>("");
 
   const recepies = useRecepieGetAllQuery({});
@@ -52,7 +53,7 @@ const CalorieNoteAdd = () => {
 
   const form = useForm<CalorieNote>({
     defaultValues: {
-      id: "",
+      id: getId(),
       userId: user.id,
       createdAt: formatDateToYYYYMMDD(new Date()),
       calorie: 0,
@@ -64,7 +65,7 @@ const CalorieNoteAdd = () => {
   useEffect(() => {
     if (!item || !isEdit) return;
 
-    form.setValue("id", item.id || "");
+    form.setValue("id", item.id || getId());
     form.setValue("userId", item.userId || user.id);
     form.setValue(
       "createdAt",

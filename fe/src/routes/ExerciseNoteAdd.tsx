@@ -16,6 +16,7 @@ import { useExerciseGetAllQuery } from "../features/useExerciseGetAllQuery";
 import { useExercisesNoteCreate } from "../features/useExercisesNoteCreate";
 import { ExercisesNote } from "../types/ExercisesNote";
 import { useUserDoneAchievement } from "../features/useUserDoneAchievement";
+import { getId } from "../utils/getId";
 
 const ExerciseNoteAdd = () => {
   const user = useContext(UserContext);
@@ -27,7 +28,7 @@ const ExerciseNoteAdd = () => {
       }
     : {};
   const items = useExerciseNoteGetAllQuery(filter);
-  const item = items.data?.[0];
+  const item = items.data as unknown as ExercisesNote;
   const [error, setError] = useState<string>("");
 
   const achieve = useUserDoneAchievement();
@@ -52,7 +53,7 @@ const ExerciseNoteAdd = () => {
 
   const form = useForm<ExercisesNote>({
     defaultValues: {
-      id: "",
+      id: getId(),
       userId: user.id,
       createdAt: formatDateToYYYYMMDD(new Date()),
       calorie: 0,
@@ -64,7 +65,7 @@ const ExerciseNoteAdd = () => {
   useEffect(() => {
     if (!item || !isEdit) return;
 
-    form.setValue("id", item.id || "");
+    form.setValue("id", item.id || getId());
     form.setValue("userId", item.userId || user.id);
     form.setValue(
       "createdAt",

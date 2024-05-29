@@ -6,6 +6,7 @@ import { UserContext } from "../components/Fallback";
 import { useExerciseGetAllQuery } from "../features/useExerciseGetAllQuery";
 import { Exercise } from "../types/Exercise";
 import { useExercisesCreate } from "../features/useExercisesCreate";
+import { getId } from "../utils/getId";
 
 const ExercisesAdd = () => {
   const user = useContext(UserContext);
@@ -17,7 +18,7 @@ const ExercisesAdd = () => {
       }
     : {};
   const items = useExerciseGetAllQuery(filter);
-  const item = items.data?.[0];
+  const item = items.data as unknown as Exercise;
   const [error, setError] = useState<string>("");
 
   const mutation = useExercisesCreate(
@@ -37,7 +38,7 @@ const ExercisesAdd = () => {
 
   const form = useForm<Exercise>({
     defaultValues: {
-      id: "",
+      id: getId(),
       name: "",
       calories: 0,
       description: "",
@@ -47,7 +48,7 @@ const ExercisesAdd = () => {
   useEffect(() => {
     if (!item || !isEdit) return;
 
-    form.setValue("id", item.id || "");
+    form.setValue("id", item.id || getId());
     form.setValue("name", item.name || "");
     form.setValue("calories", item.calories || 0);
     form.setValue("description", item.description || "");

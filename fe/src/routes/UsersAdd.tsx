@@ -14,6 +14,7 @@ import { UserContext } from "../components/Fallback";
 import { UserType } from "../types/User";
 import { useUserGetAllQuery } from "../features/useUserGetAllQuery";
 import { useUsersCreate } from "../features/useUsersCreate";
+import { getId } from "../utils/getId";
 
 const UsersAdd = () => {
   const user = useContext(UserContext);
@@ -25,7 +26,7 @@ const UsersAdd = () => {
       }
     : {};
   const items = useUserGetAllQuery(filter);
-  const item = items.data?.[0];
+  const item = items.data as unknown as UserType;
   const [error, setError] = useState<string>("");
 
   const mutation = useUsersCreate(
@@ -45,7 +46,7 @@ const UsersAdd = () => {
 
   const form = useForm<UserType>({
     defaultValues: {
-      id: "",
+      id: getId(),
       name: "",
       role: "user",
       subscription: "t-1",
@@ -67,7 +68,7 @@ const UsersAdd = () => {
   useEffect(() => {
     if (!item || !isEdit) return;
 
-    form.setValue("id", item.id || "");
+    form.setValue("id", item.id || getId());
     form.setValue("name", item.name || "");
     form.setValue("role", item.role || "user");
     form.setValue("subscription", item.subscription || "t-1");

@@ -20,7 +20,7 @@ const RecepiesDetails = () => {
       }
     : {};
   const items = useRecepieGetAllQuery(filter);
-  const item = items.data?.[0];
+  const item = items.data;
 
   const [error, setError] = useState<string>("");
 
