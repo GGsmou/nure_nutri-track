@@ -99,6 +99,24 @@ app.UseCors(builder =>
         .AllowCredentials();
 });
 
+app.UseCors(builder =>
+{
+    builder
+        .WithOrigins("https://ggsmou.github.io/nure_nutri-track")
+        .AllowAnyMethod()
+        .AllowAnyHeader()
+        .AllowCredentials();
+});
+
+app.UseCors(builder =>
+{
+    builder
+        .WithOrigins("http://localhost:5173")
+        .AllowAnyMethod()
+        .AllowAnyHeader()
+        .AllowCredentials();
+});
+
 app.UseAuthentication();
 app.UseAuthorization();
 
