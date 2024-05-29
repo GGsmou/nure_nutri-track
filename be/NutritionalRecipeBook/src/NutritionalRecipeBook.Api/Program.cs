@@ -90,13 +90,13 @@ if (app.Environment.IsProduction())
 app.UseHttpsRedirection();
 app.UseSerilogRequestLogging();
 
-app.UseCors((options) =>
+app.UseCors(builder =>
 {
-    options
+    builder
+        .WithOrigins("https://ggsmou.github.io")
         .AllowAnyMethod()
         .AllowAnyHeader()
-        .AllowCredentials()
-        .WithOrigins(config.GetSection("AllowedCorsOrigins").Get<string[]>()!);
+        .AllowCredentials();
 });
 
 app.UseAuthentication();
