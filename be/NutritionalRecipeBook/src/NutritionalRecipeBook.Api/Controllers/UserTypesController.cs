@@ -14,7 +14,10 @@ public class UserTypesController : ControllerBase
     private readonly IIdentityService _identityService;
     private readonly IGenericRepository<UserTypeIngredient> _userTypeIngredientRepository;
 
-    public UserTypesController(IGenericRepository<UserType> userTypeRepository, IIdentityService identityService, IGenericRepository<UserTypeIngredient> userTypeIngredientRepository)
+    public UserTypesController(
+        IGenericRepository<UserType> userTypeRepository, 
+        IIdentityService identityService, 
+        IGenericRepository<UserTypeIngredient> userTypeIngredientRepository)
     {
         _userTypeRepository = userTypeRepository;
         _identityService = identityService;
@@ -26,6 +29,14 @@ public class UserTypesController : ControllerBase
     {
         var result = await _userTypeRepository.GetAllAsync();
 
+        foreach (var userType in result)
+        {
+            var banIngredients =
+                await _userTypeIngredientRepository.GetManyByPredicateAsync(uti => uti.UserTypeId == userType.Id);
+
+            userType.BannedIngredients = banIngredients;
+        }
+        
         return Ok(result);
     }
 
@@ -34,6 +45,13 @@ public class UserTypesController : ControllerBase
     {
         var result = await _userTypeRepository.GetByIdAsync(id);
 
+        if (result == null) return NotFound();
+            
+        var banIngredients =
+            await _userTypeIngredientRepository.GetManyByPredicateAsync(uti => uti.UserTypeId == result.Id);
+
+        result.BannedIngredients = banIngredients;
+        
         return Ok(result);
     }
 
