@@ -15,6 +15,7 @@ import { UserType } from "../types/User";
 import { useUserGetAllQuery } from "../features/useUserGetAllQuery";
 import { useUsersCreate } from "../features/useUsersCreate";
 import { getId } from "../utils/getId";
+import { INGREDIENTS } from "../utils/ingredients";
 
 const UsersAdd = () => {
   const user = useContext(UserContext);
@@ -26,7 +27,7 @@ const UsersAdd = () => {
       }
     : {};
   const items = useUserGetAllQuery(filter);
-  const item = items.data as unknown as UserType;
+  const item = items.data?.[0] as unknown as UserType;
   const [error, setError] = useState<string>("");
 
   const mutation = useUsersCreate(
@@ -47,6 +48,7 @@ const UsersAdd = () => {
   const form = useForm<UserType>({
     defaultValues: {
       id: getId(),
+      typeId: "bd365b44-4686-4b28-ac9d-aaa04d1075fb",
       name: "",
       role: "user",
       subscription: "t-1",
@@ -69,13 +71,14 @@ const UsersAdd = () => {
     if (!item || !isEdit) return;
 
     form.setValue("id", item.id || getId());
+    form.setValue("typeId", item.typeId || "");
     form.setValue("name", item.name || "");
     form.setValue("role", item.role || "user");
     form.setValue("subscription", item.subscription || "t-1");
     form.setValue("email", item.email || "");
     form.setValue(
       "bannedIngredients",
-      (item.bannedIngredients.join(", ") || "") as unknown as [],
+      (item.bannedIngredients?.join(", ") || "") as unknown as [],
     );
     form.setValue("dailyCalories", item.dailyCalories || 0);
     form.setValue("weight", item.weight || 0);
@@ -92,7 +95,7 @@ const UsersAdd = () => {
   const handleCreate = form.handleSubmit((data) => {
     setError("");
 
-    if (!data.name || !data.role || !data.subscription || !data.email) {
+    if (!data.name || !data.role || !data.subscription) {
       setError("Fill all fields");
       return;
     }
@@ -242,27 +245,6 @@ const UsersAdd = () => {
             />
 
             <Controller
-              name="email"
-              control={form.control}
-              render={({ field }) => (
-                <FormControl
-                  size="small"
-                  fullWidth
-                  sx={{ m: 1, minWidth: 120, maxWidth: "95%" }}
-                >
-                  <TextField
-                    label="Email"
-                    placeholder="expample@mail.com"
-                    onChange={field.onChange}
-                    value={field.value}
-                    size="small"
-                    required
-                  />
-                </FormControl>
-              )}
-            />
-
-            <Controller
               name="bannedIngredients"
               control={form.control}
               render={({ field }) => (
@@ -273,7 +255,7 @@ const UsersAdd = () => {
                 >
                   <TextField
                     label="Banned Ingredients"
-                    placeholder="ing1, ing2, ing3"
+                    placeholder={INGREDIENTS.map((i) => i.name).join(", ")}
                     onChange={field.onChange}
                     value={field.value}
                     size="small"

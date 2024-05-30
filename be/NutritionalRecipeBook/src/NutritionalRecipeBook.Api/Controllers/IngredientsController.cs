@@ -5,7 +5,6 @@ using NutritionalRecipeBook.Application.Contracts;
 
 namespace NutritionalRecipeBook.Api.Controllers
 {
-    [Authorize]
     [ApiController]
     [Route("[controller]")]
     public class IngredientsController : ControllerBase

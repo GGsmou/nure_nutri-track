@@ -14,6 +14,9 @@ export const useWaterNoteCreate = (
 ) => {
   return useMutation((data: WaterNote) => {
     const type = filter.type === "edit" ? "PUT" : "POST";
-    return fetchAbstract("WaterNote/", type, data);
+    return fetchAbstract("WaterNote/", type, {
+      ...data,
+      createdAt: new Date(data.createdAt).toISOString(),
+    });
   });
 };

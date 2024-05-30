@@ -1,6 +1,8 @@
 import { useMutation } from "react-query";
 import { fetchAbstract } from "../utils/fetchAbstract";
 import { Recepie } from "../types/Recepie";
+import { getId } from "../utils/getId";
+import { INGREDIENTS } from "../utils/ingredients";
 
 export const useRecepieCreate = (
   filter:
@@ -14,6 +16,14 @@ export const useRecepieCreate = (
 ) => {
   return useMutation((data: Recepie) => {
     const type = filter.type === "edit" ? "PUT" : "POST";
-    return fetchAbstract("Recipes/", type, data);
+    return fetchAbstract("Recipes/", type, {
+      ...data,
+      userId: getId(),
+      newIngredientIds: data.ingredients
+        .map((ingredient) => INGREDIENTS.find((i) => i.name === ingredient)?.id)
+        .filter(Boolean),
+      existingIngredients: [],
+      newIngredients: [],
+    });
   });
 };

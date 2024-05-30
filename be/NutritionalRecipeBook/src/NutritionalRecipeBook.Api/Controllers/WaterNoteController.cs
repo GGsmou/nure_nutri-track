@@ -40,7 +40,8 @@ public class WaterNoteController : Controller
         var result = new WaterNote()
         {
             UserId = request.UserId,
-            Ml = request.Ml
+            Ml = request.Ml,
+            CreatedAt = request.CreatedAt
         };
         
         await _waterNoteRepository.CreateAsync(result);
@@ -49,11 +50,19 @@ public class WaterNoteController : Controller
     }
 
     [HttpPut]
-    public async Task<IActionResult> Update([FromBody] WaterNote recipeComment)
+    public async Task<IActionResult> Update([FromBody] AddWaterCommentRequest request)
     { 
-        await _waterNoteRepository.UpdateAsync(recipeComment);
+        var result = new WaterNote()
+        {
+            UserId = request.UserId,
+            Ml = request.Ml,
+            CreatedAt = request.CreatedAt,
+            Id = (Guid)request.Id!
+        };
+        
+        await _waterNoteRepository.UpdateAsync(result);
 
-        return Ok(recipeComment);
+        return Ok(result);
     }
 
     [HttpDelete("{id}")]

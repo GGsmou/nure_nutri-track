@@ -1,7 +1,15 @@
 export const urlBuilder = (
   urlString: string,
   queryObject: Record<string, unknown>,
+  noPagination: boolean = false,
 ) => {
+  const pagination = noPagination
+    ? []
+    : [
+        ["pageSize", "1000"],
+        ["pageNumber", "0"],
+      ];
+
   const queryParams = new URLSearchParams([
     ...(Object.entries(queryObject)
       .map(([key, value]) => {
@@ -10,8 +18,7 @@ export const urlBuilder = (
         }
       })
       .filter((x) => x) as string[][]),
-    ["pageSize", "1000"],
-    ["pageNumber", "1"],
+    ...pagination,
   ]).toString();
 
   const idParam = queryObject.id ? `/${queryObject.id}` : "";

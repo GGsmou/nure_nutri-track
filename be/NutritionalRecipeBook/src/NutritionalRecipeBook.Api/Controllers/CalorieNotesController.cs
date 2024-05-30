@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using NutritionalRecipeBook.Application.Common.Models;
 using NutritionalRecipeBook.Application.Contracts;
 using NutritionalRecipeBook.Domain.Entities;
 using NutritionalRecipeBook.Infrastructure.Contracts;
@@ -36,19 +37,25 @@ public class CalorieNotesController : ControllerBase
         return Ok(result);
     }
 
-    [HttpPost("{userId}/{recepieId}")]
-    public async Task<IActionResult> Create([FromBody] CalorieNote calorieNote, [FromRoute] Guid userId, [FromRoute] Guid recepieId)
+    [HttpPost]
+    public async Task<IActionResult> Create([FromBody] AddCalorieNoteRequest request)
     {
+        var calorieNote = new CalorieNote()
+        {
+            Calorie = request.Calorie,
+            CreatedAt = request.CreatedAt
+        };
+        
         await _calorieNoteRepository.CreateAsync(calorieNote);
     
-        var user = await _identityService.GetUserByIdWithRelationsAsync(userId.ToString());
+        var user = await _identityService.GetUserByIdWithRelationsAsync(request.UserId);
 
         if (user == null) return NotFound();
 
         var userRecipe = new UserRecipe()
         {
-            UserId = userId.ToString(),
-            RecipeId = recepieId,
+            UserId = request.UserId,
+            RecipeId = request.RecipeId,
             CCalorieNoteId = calorieNote.Id
         };
         

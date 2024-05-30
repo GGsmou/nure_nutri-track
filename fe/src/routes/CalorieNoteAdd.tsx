@@ -28,7 +28,7 @@ const CalorieNoteAdd = () => {
       }
     : {};
   const items = useCalorieNoteGetAllQuery(filter);
-  const item = items.data as unknown as CalorieNote;
+  const item = items.data?.[0] as unknown as CalorieNote;
   const [error, setError] = useState<string>("");
 
   const recepies = useRecepieGetAllQuery({});
@@ -69,7 +69,7 @@ const CalorieNoteAdd = () => {
     form.setValue("userId", item.userId || user.id);
     form.setValue(
       "createdAt",
-      item.createdAt || formatDateToYYYYMMDD(new Date()),
+      item.createdAt.split("T")[0] || formatDateToYYYYMMDD(new Date()),
     );
     form.setValue("calorie", item.calorie || 0);
     form.setValue("recepieId", item.recepieId || "");
@@ -96,7 +96,7 @@ const CalorieNoteAdd = () => {
       .then(() => {
         achieve
           .mutateAsync({
-            id: user.id,
+            id: user.typeId,
             achievement: "ateHealthy",
           })
           .then(() => {
@@ -243,6 +243,12 @@ const CalorieNoteAdd = () => {
                     disablePortal
                     onChange={(_, value) => {
                       field.onChange(value || "");
+                      form.setValue(
+                        "calorie",
+                        (recepies.data || []).find(
+                          (account) => account.id === value,
+                        )?.calories || 0,
+                      );
                     }}
                     value={field.value}
                     options={[

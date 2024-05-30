@@ -60,7 +60,7 @@ const RecepiesDetails = () => {
         form.reset();
 
         achieve.mutateAsync({
-          id: user.id,
+          id: user.typeId,
           achievement: "critic",
         });
       })
@@ -119,7 +119,7 @@ const RecepiesDetails = () => {
                     items.refetch();
 
                     achieve.mutateAsync({
-                      id: user.id,
+                      id: user.typeId,
                       achievement: "criticTwoPointO",
                     });
                   });

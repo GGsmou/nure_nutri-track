@@ -80,8 +80,6 @@ namespace NutritionalRecipeBook.Application.Services
 
         public async Task<Result> CreateAsync(CreateRecipeRequest request)
         {
-            var allIngredients = request.NewIngredients.Concat(request.ExistingIngredients);
-
             var recipeSpecification = new RecipeSpecification(request.Name, request.Description, request.Calories);
 
             var recipe = new Recipe(recipeSpecification, request.UserId);
@@ -148,28 +146,20 @@ namespace NutritionalRecipeBook.Application.Services
 
         private async Task AddIngredients(Recipe recipe, CreateRecipeRequest request)
         {
-            var existingIngredientsIds = request.ExistingIngredients
-                .Select(i => i.Id);
-
-            var ingredients = await _ingredientRepository
-                .GetManyByPredicateAsync(ing => existingIngredientsIds.Contains(ing.Id));
-
-            foreach (var ingredient in request.NewIngredients)
+            foreach (var ingredientId in request.NewIngredientIds)
             {
-                ingredient.Id = Guid.NewGuid();
-                await _ingredientRepository.CreateAsync(ingredient);
+                var ingredient = await _ingredientRepository.GetByIdAsync(ingredientId);
+                
+                if (ingredient == null) continue;
+
+                var recipeIngredient = new RecipeIngredient()
+                {
+                    IngredientId = ingredientId,
+                    RecipeId = recipe.Id
+                };
+
+                await _recipeIngredientRepository.CreateAsync(recipeIngredient);
             }
-
-            ingredients.AddRange(request.NewIngredients);
-
-            var ingredientsToAdd = new List<RecipeIngredient>();
-
-            foreach (var ingredient in ingredients)
-            {
-                ingredientsToAdd.Add(new RecipeIngredient { Recipe = recipe, Ingredient = ingredient });
-            }
-
-            await _recipeIngredientRepository.CreateManyAsync(ingredientsToAdd);
         }
 
         private async Task UpdateIngredients(Recipe recipeToUpdate, UpdateRecipeRequest request)
