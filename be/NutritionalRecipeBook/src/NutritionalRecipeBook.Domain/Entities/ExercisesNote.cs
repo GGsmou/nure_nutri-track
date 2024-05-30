@@ -10,7 +10,7 @@ public class ExercisesNote : BaseEntity
 
     public Guid ExerciseId { get; set; }
 
-    public DateOnly CreatedAt { get; set; } = DateOnly.FromDateTime(DateTime.Now);
+    public DateTime CreatedAt { get; set; } = DateTime.Now;
     
     public double Calories { get; set; } 
 }

@@ -48,6 +48,7 @@ public class ExercisesNotesController : Controller
             ExerciseId = exercisesNote.ExerciseId,
             UserId = exercisesNote.UserId,
             Calories = exercisesNote.Calories,
+            CreatedAt = exercisesNote.CreatedAt,
             User = user,
             Exercise = exercise
         };
@@ -58,11 +59,25 @@ public class ExercisesNotesController : Controller
     }
 
     [HttpPut]
-    public async Task<IActionResult> Update([FromBody] ExercisesNote exercisesNote)
+    public async Task<IActionResult> Update([FromBody] AddExerciseNoteRequest exercisesNote)
     { 
-        await _exerciseNoteRepository.UpdateAsync(exercisesNote);
+        var user = await _identityService.GetUserByIdWithRelationsAsync(exercisesNote.UserId);
+        var exercise = await _exerciseRepository.GetByIdAsync(exercisesNote.ExerciseId);
+        
+        var result = new ExercisesNote()
+        {
+            ExerciseId = exercisesNote.ExerciseId,
+            UserId = exercisesNote.UserId,
+            Calories = exercisesNote.Calories,
+            CreatedAt = exercisesNote.CreatedAt,
+            User = user,
+            Exercise = exercise,
+            Id = (Guid)exercisesNote.Id!
+        };
+        
+        await _exerciseNoteRepository.UpdateAsync(result);
 
-        return Ok(exercisesNote);
+        return Ok(result);
     }
 
     [HttpDelete("{id}")]

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NutritionalRecipeBook.Infrastructure;
 
@@ -11,9 +12,11 @@ using NutritionalRecipeBook.Infrastructure;
 namespace NutritionalRecipeBook.Infrastructure.Migrations
 {
     [DbContext(typeof(RecipeBookContext))]
-    partial class RecipeBookContextModelSnapshot : ModelSnapshot
+    [Migration("20240530095054_UpdateDateCalorieNote")]
+    partial class UpdateDateCalorieNote
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -271,8 +274,8 @@ namespace NutritionalRecipeBook.Infrastructure.Migrations
                     b.Property<double>("Calories")
                         .HasColumnType("float");
 
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
+                    b.Property<DateOnly>("CreatedAt")
+                        .HasColumnType("date");
 
                     b.Property<Guid>("ExerciseId")
                         .HasColumnType("uniqueidentifier");
@@ -651,8 +654,8 @@ namespace NutritionalRecipeBook.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
+                    b.Property<DateOnly>("CreatedAt")
+                        .HasColumnType("date");
 
                     b.Property<double>("Ml")
                         .HasColumnType("float");
