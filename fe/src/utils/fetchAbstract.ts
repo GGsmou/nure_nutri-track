@@ -1,3 +1,4 @@
+import { authService } from "./authService";
 import { getBaseUrl } from "./getBaseUrl";
 
 export const fetchAbstract = async (
@@ -9,6 +10,7 @@ export const fetchAbstract = async (
     method: method,
     headers: {
       "Content-Type": "application/json",
+      Authorization: "Bearer " + authService.getAuthInfo().token,
     },
     body: JSON.stringify(body),
     // mode: "no-cors",
