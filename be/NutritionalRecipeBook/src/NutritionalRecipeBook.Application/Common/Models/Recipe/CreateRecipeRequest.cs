@@ -9,8 +9,6 @@ namespace NutritionalRecipeBook.Application.Common.Models.Recipe
         public string Description { get; set; }
 
         public List<Guid> NewIngredientIds { get; set; }
-
-        public string UserId { get; set; }
         
         public double Calories { get; set; } 
         

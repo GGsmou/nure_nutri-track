@@ -82,7 +82,7 @@ namespace NutritionalRecipeBook.Application.Services
         {
             var recipeSpecification = new RecipeSpecification(request.Name, request.Description, request.Calories);
 
-            var recipe = new Recipe(recipeSpecification, request.UserId);
+            var recipe = new Recipe(recipeSpecification);
 
             await _recipeRepository.CreateAsync(recipe);
             await AddIngredients(recipe, request);
@@ -106,14 +106,14 @@ namespace NutritionalRecipeBook.Application.Services
                 return Result.Failure(new Error("404", "Such recipe doesn't exist"));
             }
 
-            if (existingRecipe.UserId == user.Id)
-            {
-                await UpdatePlainProperties(existingRecipe, request);
-                await UpdateIngredients(existingRecipe, request);
-                await _recipeRepository.UpdateAsync(existingRecipe);
-
-                return Result.Success();
-            }
+            // if (existingRecipe.UserId == user.Id)
+            // {
+            //     await UpdatePlainProperties(existingRecipe, request);
+            //     await UpdateIngredients(existingRecipe, request);
+            //     await _recipeRepository.UpdateAsync(existingRecipe);
+            //
+            //     return Result.Success();
+            // }
 
             return Result.Failure(new Error("403", "Recipes can be updated only by creator"));
         }
@@ -134,12 +134,12 @@ namespace NutritionalRecipeBook.Application.Services
                 return Result.Failure(new Error("404", "Such recipe doesn't exist."));
             }
 
-            if (recipeToDelete.UserId == user.Id)
-            {
-                await _recipeRepository.RemoveByIdAsync(recipeToDelete.Id);
-
-                return Result.Success();
-            }
+            // if (recipeToDelete.UserId == user.Id)
+            // {
+            //     await _recipeRepository.RemoveByIdAsync(recipeToDelete.Id);
+            //
+            //     return Result.Success();
+            // }
 
             return Result.Failure(new Error("403", "Recipes can be deleted only by creator"));
         }
