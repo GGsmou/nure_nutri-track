@@ -19,6 +19,7 @@ import UsersSettings from "./routes/UsersSettings";
 import CompanyStats from "./routes/CompanyStats";
 import { Landing } from "./routes/Landing";
 import { Auth } from "./routes/Auth";
+import { NewUser } from "./routes/NewUser";
 
 const queryClient = new QueryClient();
 
@@ -29,6 +30,7 @@ const Router = () => {
         <Routes>
           <Route path="/landing" element={<Landing />} />
           <Route path="/auth" element={<Auth />} />
+          <Route path="/new-user" element={<NewUser />} />
           <Route path="/" element={<App />}>
             <Route index element={<>Welcome to NutriTrack</>} />
             <Route path="*" element={<>404</>} />

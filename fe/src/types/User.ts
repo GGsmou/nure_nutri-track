@@ -1,3 +1,8 @@
+export interface User {
+  id: string;
+  userName: string;
+  email: string;
+}
 export type UserType = {
   id: string;
   typeId: string;

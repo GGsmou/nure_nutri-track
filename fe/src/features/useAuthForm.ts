@@ -5,6 +5,7 @@ import * as yup from "yup";
 import { LoginBody, LoginResponse, RegisterBody } from "../types/Identity";
 import { fetchAbstract } from "../utils/fetchAbstract";
 import { authService } from "../utils/authService";
+import { useNavigate } from "react-router-dom";
 
 const AuthFormSchema = yup.object().shape({
   email: yup.string().email().required(),
@@ -13,6 +14,7 @@ const AuthFormSchema = yup.object().shape({
 type AuthFormType = yup.InferType<typeof AuthFormSchema>;
 
 export const useAuthForm = () => {
+  const navigate = useNavigate();
   const { mutateAsync: signIn } = useMutation((data: LoginBody) => {
     return fetchAbstract(
       "Identity/login",
@@ -40,6 +42,7 @@ export const useAuthForm = () => {
         try {
           const authInfo = await signIn(data);
           authService.setAuthInfo(authInfo);
+          navigate("/");
         } catch (e) {
           setError("email", { message: "Invalid email or password" });
           setError("password", { message: "Invalid email or password" });
@@ -50,6 +53,7 @@ export const useAuthForm = () => {
           await signUp({ ...data, username: data.email });
           const authInfo = await signIn(data);
           authService.setAuthInfo(authInfo);
+          navigate("/new-user");
         } catch (e) {
           setError("email", { message: "This email already in use" });
         }
