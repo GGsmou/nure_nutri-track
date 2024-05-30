@@ -8,6 +8,7 @@ export const AuthFallback = ({ children }: { children: ReactNode }) => {
     isLoading: false,
     data: {
       id: "1",
+      typeId: "4438c07e-5514-4cd2-a182-50304b5843b4",
       name: "John Doe",
       role: "admin",
       subscription: "t-3",

@@ -2,6 +2,7 @@ import { useQuery } from "react-query";
 import { fetchAbstract } from "../utils/fetchAbstract";
 import { UserType } from "../types/User";
 import { urlBuilder } from "../utils/urlBuilder";
+import { INGREDIENTS } from "../utils/ingredients";
 
 export const MAP_ROLE = {
   0: "admin",
@@ -41,7 +42,17 @@ export const useUserGetAllQuery = (filter: { id?: string }) => {
         role: MAP_ROLE[obj.role as 0 | 1],
         subscription: MAP_SUBSCRIPTION[obj.subscription as 0 | 1 | 2],
         typeId: obj.id,
-        bannedIngredients: obj.bannedIngredients || [],
+        bannedIngredients:
+          (
+            obj.bannedIngredients as unknown as
+              | Record<string, unknown>[]
+              | undefined
+          )
+            ?.map((x) => {
+              x.ingredientId;
+              INGREDIENTS.find((i) => i.id === x.ingredientId)?.name || "";
+            })
+            .filter(Boolean) || [],
       })) as unknown as UserType[];
     },
   });

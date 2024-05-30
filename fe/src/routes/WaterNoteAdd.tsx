@@ -51,7 +51,7 @@ const WaterNoteAdd = () => {
   const form = useForm<WaterNote>({
     defaultValues: {
       id: getId(),
-      userId: user.id,
+      userId: user.typeId,
       createdAt: formatDateToYYYYMMDD(new Date()),
       ml: 0,
     },
