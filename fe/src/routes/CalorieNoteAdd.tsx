@@ -28,7 +28,7 @@ const CalorieNoteAdd = () => {
       }
     : {};
   const items = useCalorieNoteGetAllQuery(filter);
-  const item = items.data as unknown as CalorieNote;
+  const item = items.data?.[0] as unknown as CalorieNote;
   const [error, setError] = useState<string>("");
 
   const recepies = useRecepieGetAllQuery({});
@@ -243,6 +243,12 @@ const CalorieNoteAdd = () => {
                     disablePortal
                     onChange={(_, value) => {
                       field.onChange(value || "");
+                      form.setValue(
+                        "calorie",
+                        (recepies.data || []).find(
+                          (account) => account.id === value,
+                        )?.calories || 0,
+                      );
                     }}
                     value={field.value}
                     options={[

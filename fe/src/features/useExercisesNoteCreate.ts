@@ -17,6 +17,7 @@ export const useExercisesNoteCreate = (
     return fetchAbstract("ExercisesNotes/", type, {
       ...data,
       createdAt: new Date(data.createdAt).toISOString(),
+      calories: data.calorie,
     });
   });
 };

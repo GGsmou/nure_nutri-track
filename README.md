@@ -10,7 +10,7 @@ _to test when BE is ready_
 
 - [x] CaloriesNotes for the day
 - [x] ~~Exercises crud(Admin)~~
-- [x] ExercisesNotes crud
+- [x] ~~ExercisesNotes crud~~
 - [x] ~~Water crud~~
 - [x] User crud(Admin)
 - [x] Recipes crud

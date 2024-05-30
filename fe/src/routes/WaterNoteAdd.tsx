@@ -28,7 +28,7 @@ const WaterNoteAdd = () => {
       }
     : {};
   const items = useWaterNoteGetAllQuery(filter);
-  const item = items.data as unknown as WaterNote;
+  const item = items.data?.[0] as unknown as WaterNote;
   const [error, setError] = useState<string>("");
 
   const users = useUserGetAllQuery({});
