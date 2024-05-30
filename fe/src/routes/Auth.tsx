@@ -24,7 +24,7 @@ export const Auth = () => {
           justifyContent: "center",
           alignItems: "center",
           background:
-            "radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(84,169,143,0.5) 100%)",
+            "linear-gradient(333deg, rgba(204,255,236,1) 0%, rgba(255,255,255,1) 35%, rgba(255,255,255,1) 65%, rgba(204,255,236,1) 100%)",
         }}
       >
         <Box
@@ -34,7 +34,7 @@ export const Auth = () => {
             bgcolor: "white",
             borderRadius: "20px",
             display: "flex",
-            boxShadow: "0px 0px 10px 0px rgba(0,0,0,0.1)",
+            boxShadow: "10px 10px 33px -14px rgba(0,0,0,0.75);",
           }}
         >
           <Box
