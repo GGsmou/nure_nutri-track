@@ -8,6 +8,7 @@ using Serilog;
 using System.Text;
 using System.Text.Json.Serialization;
 using Microsoft.EntityFrameworkCore;
+using NutritionalRecipeBook.Api.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -104,6 +105,8 @@ app.Use(async (context, next) =>
     context.Response.Headers.Append("Access-Control-Allow-Origin", "*");
     await next.Invoke();
 });
+
+app.UseMiddleware<ExceptionsHandlingMiddleware>();
 
 app.MapControllers();
 
