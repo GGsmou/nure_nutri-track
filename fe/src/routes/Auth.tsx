@@ -1,3 +1,146 @@
+import {
+  Box,
+  Button,
+  Divider,
+  TextField,
+  ThemeProvider,
+  Typography,
+  createTheme,
+} from "@mui/material";
+
+const theme = createTheme({
+  palette: {
+    primary: { main: "#54BD95" },
+  },
+});
+
 export const Auth = () => {
-  return <div>Auth</div>;
+  return (
+    <ThemeProvider theme={theme}>
+      <Box
+        sx={{
+          minHeight: "100vh",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          background:
+            "radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(84,169,143,0.5) 100%)",
+        }}
+      >
+        <Box
+          sx={{
+            width: "min(1100px, 80%)",
+            height: "525px",
+            bgcolor: "white",
+            borderRadius: "20px",
+            display: "flex",
+            boxShadow: "0px 0px 10px 0px rgba(0,0,0,0.1)",
+          }}
+        >
+          <Box
+            sx={{
+              width: "70%",
+              display: "flex",
+              justifyContent: "space-between",
+              padding: "50px",
+              alignItems: "center",
+              flexDirection: "column",
+              gap: "20px",
+            }}
+          >
+            <Typography fontSize="48px" color="black">
+              Create your account
+            </Typography>
+            <Box
+              sx={{
+                width: "100%",
+                display: "flex",
+                flexDirection: "column",
+                gap: "20px",
+              }}
+            >
+              <TextField label="Email" />
+              <TextField label="Password" />
+            </Box>
+            <Box
+              sx={{
+                width: "100%",
+                display: "flex",
+                flexDirection: "column",
+                gap: "20px",
+                alignItems: "center",
+              }}
+            >
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  width: "100%",
+                  gap: "40px",
+                  height: "48px",
+                }}
+              >
+                <Button
+                  fullWidth
+                  size="large"
+                  variant="contained"
+                  sx={{
+                    color: "white",
+                    textTransform: "none",
+                    borderRadius: "20px",
+                  }}
+                >
+                  Sign In
+                </Button>
+                <Button
+                  fullWidth
+                  size="large"
+                  variant="outlined"
+                  sx={{
+                    textTransform: "none",
+                    borderRadius: "20px",
+                  }}
+                >
+                  Sign Up
+                </Button>
+              </Box>
+              <Divider sx={{ width: "100%" }}>
+                <Typography>OR</Typography>
+              </Divider>
+              <Box>Google</Box>
+            </Box>
+          </Box>
+          <Box
+            sx={{
+              width: "30%",
+              bgcolor: "#85DAB9",
+              borderTopRightRadius: "20px",
+              borderBottomRightRadius: "20px",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              flexDirection: "column",
+              gap: "20px",
+            }}
+          >
+            <Typography variant="h4" color="white">
+              Welcome to
+            </Typography>
+            <img
+              src="/logo.png"
+              alt="logo"
+              style={{
+                width: "140px",
+                height: "140px",
+                borderRadius: "50%",
+              }}
+            />
+            <Typography variant="h2" fontWeight="500" color="white">
+              NutriTrack
+            </Typography>
+          </Box>
+        </Box>
+      </Box>
+    </ThemeProvider>
+  );
 };
