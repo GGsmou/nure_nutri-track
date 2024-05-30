@@ -14,6 +14,7 @@ import { useRecepieCreate } from "../features/useRecepieCreate";
 import { Recepie } from "../types/Recepie";
 import { useUserDoneAchievement } from "../features/useUserDoneAchievement";
 import { getId } from "../utils/getId";
+import { INGREDIENTS } from "../utils/ingredients";
 
 const RecepiesAdd = () => {
   const user = useContext(UserContext);
@@ -248,7 +249,7 @@ const RecepiesAdd = () => {
                 >
                   <TextField
                     label="Ingredients"
-                    placeholder="ing1, ing2, ing3"
+                    placeholder={INGREDIENTS.map((i) => i.name).join(", ")}
                     onChange={field.onChange}
                     value={field.value}
                     size="small"

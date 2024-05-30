@@ -5,6 +5,7 @@ import {
   MAP_ROLE_REVERSE,
   MAP_SUBSCRIPTION_REVERSE,
 } from "./useUserGetAllQuery";
+import { INGREDIENTS } from "../utils/ingredients";
 
 export const useUsersCreate = (
   filter:
@@ -26,6 +27,9 @@ export const useUsersCreate = (
       role: MAP_ROLE_REVERSE[data.role as "admin" | "user"],
       subscription:
         MAP_SUBSCRIPTION_REVERSE[data.subscription as "t-1" | "t-2" | "t-3"],
+      bannedIngredientIds: data.bannedIngredients
+        .map((ingredient) => INGREDIENTS.find((i) => i.name === ingredient)?.id)
+        .filter(Boolean),
     });
   });
 };

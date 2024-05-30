@@ -14,12 +14,13 @@ export const useCalorieNoteCreate = (
 ) => {
   return useMutation((data: CalorieNote) => {
     const type = filter.type === "edit" ? "PUT" : "POST";
-    const params = type === "POST" ? `${data.userId}/${data.recepieId}/` : "";
 
-    return fetchAbstract(`CalorieNotes/${params}`, type, {
+    return fetchAbstract(`CalorieNotes/`, type, {
       calories: data.calorie,
       id: data.id,
       createdAt: new Date(data.createdAt).toISOString(),
+      userId: data.userId,
+      recepieId: data.recepieId,
     });
   });
 };
