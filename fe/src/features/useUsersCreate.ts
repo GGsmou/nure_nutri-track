@@ -13,10 +13,7 @@ export const useUsersCreate = (
       },
 ) => {
   return useMutation((data: UserType) => {
-    if (filter.type === "edit") {
-      return fetchAbstract("UserTypes/" + filter.data.id, "PUT", data);
-    }
-
-    return fetchAbstract("UserTypes/", "POST", data);
+    const type = filter.type === "edit" ? "PUT" : "POST";
+    return fetchAbstract("UserTypes/", type, data);
   });
 };

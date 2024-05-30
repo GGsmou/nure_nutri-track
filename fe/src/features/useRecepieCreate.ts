@@ -13,10 +13,7 @@ export const useRecepieCreate = (
       },
 ) => {
   return useMutation((data: Recepie) => {
-    if (filter.type === "edit") {
-      return fetchAbstract("Recipes/" + filter.data.id, "PUT", data);
-    }
-
-    return fetchAbstract("Recipes/", "POST", data);
+    const type = filter.type === "edit" ? "PUT" : "POST";
+    return fetchAbstract("Recipes/", type, data);
   });
 };

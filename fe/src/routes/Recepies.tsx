@@ -1,12 +1,12 @@
 import { useContext, useMemo, useState } from "react";
 import { Button, IconButton } from "@mui/material";
 import { Link } from "react-router-dom";
-import { Delete, Edit, Watch } from "@mui/icons-material";
+import { Delete, Edit, Visibility } from "@mui/icons-material";
 import { GridColDef } from "@mui/x-data-grid";
 import { UserContext } from "../components/Fallback";
 import { getStyledDataGrid } from "../utils/getStyledDataGrid";
-import { useExerciseGetAllQuery } from "../features/useExerciseGetAllQuery";
-import { useExerciseDelete } from "../features/useExerciseDelete";
+import { useRecepieGetAllQuery } from "../features/useRecepieGetAllQuery";
+import { useRecepieDelete } from "../features/useRecepieDelete";
 
 const StyledDataGrid = getStyledDataGrid();
 
@@ -14,8 +14,8 @@ export const Recepies = () => {
   const user = useContext(UserContext);
   const isAdmin = user.role === "admin";
 
-  const { error, isLoading, data, refetch } = useExerciseGetAllQuery({});
-  const deleteU = useExerciseDelete();
+  const { error, isLoading, data, refetch } = useRecepieGetAllQuery({});
+  const deleteU = useRecepieDelete();
   const [localError, setLocalError] = useState<string>("");
 
   const rows = data || [];
@@ -81,7 +81,7 @@ export const Recepies = () => {
             <>
               <Link to={`/recepies/details/${cellValues.row.id}`}>
                 <IconButton aria-label="details">
-                  <Watch />
+                  <Visibility />
                 </IconButton>
               </Link>
 

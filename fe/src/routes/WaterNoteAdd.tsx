@@ -15,6 +15,7 @@ import { useWaterNoteGetAllQuery } from "../features/useWaterNoteGetAllQuery";
 import { useWaterNoteCreate } from "../features/useWaterNoteCreate";
 import { WaterNote } from "../types/WaterNote";
 import { useUserDoneAchievement } from "../features/useUserDoneAchievement";
+import { getId } from "../utils/getId";
 
 const WaterNoteAdd = () => {
   const user = useContext(UserContext);
@@ -27,7 +28,7 @@ const WaterNoteAdd = () => {
       }
     : {};
   const items = useWaterNoteGetAllQuery(filter);
-  const item = items.data?.[0];
+  const item = items.data as unknown as WaterNote;
   const [error, setError] = useState<string>("");
 
   const users = useUserGetAllQuery({});
@@ -49,7 +50,7 @@ const WaterNoteAdd = () => {
 
   const form = useForm<WaterNote>({
     defaultValues: {
-      id: "",
+      id: getId(),
       userId: user.id,
       createdAt: formatDateToYYYYMMDD(new Date()),
       ml: 0,
@@ -59,7 +60,7 @@ const WaterNoteAdd = () => {
   useEffect(() => {
     if (!item || !isEdit) return;
 
-    form.setValue("id", item.id || "");
+    form.setValue("id", item.id || getId());
     form.setValue("userId", item.userId || user.id);
     form.setValue(
       "createdAt",
