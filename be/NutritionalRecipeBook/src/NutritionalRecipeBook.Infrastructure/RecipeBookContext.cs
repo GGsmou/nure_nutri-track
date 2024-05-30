@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using NutritionalRecipeBook.Domain.Entities;
 using System.Reflection;
+using NutritionalRecipeBook.Infrastructure.Helpers;
 
 namespace NutritionalRecipeBook.Infrastructure
 {
@@ -32,6 +33,7 @@ namespace NutritionalRecipeBook.Infrastructure
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+            modelBuilder.Seed();
         }
     }
 }
