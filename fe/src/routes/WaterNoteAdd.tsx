@@ -64,7 +64,7 @@ const WaterNoteAdd = () => {
     form.setValue("userId", item.userId || user.id);
     form.setValue(
       "createdAt",
-      item.createdAt || formatDateToYYYYMMDD(new Date()),
+      item.createdAt.split("T")[0] || formatDateToYYYYMMDD(new Date()),
     );
     form.setValue("ml", item.ml || 0);
   }, [items.data, isEdit, form, item, user.id]);
@@ -89,7 +89,7 @@ const WaterNoteAdd = () => {
       .then(() => {
         achieve
           .mutateAsync({
-            id: user.id,
+            id: user.typeId,
             achievement: "hydrated",
           })
           .then(() => {

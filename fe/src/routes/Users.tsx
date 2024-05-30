@@ -1,5 +1,5 @@
 import { useContext, useMemo, useState } from "react";
-import { Button, IconButton } from "@mui/material";
+import { IconButton } from "@mui/material";
 import { Link } from "react-router-dom";
 import { Delete, Edit } from "@mui/icons-material";
 import { GridColDef } from "@mui/x-data-grid";
@@ -66,7 +66,7 @@ export const Users = () => {
         renderCell: (cellValues) => {
           return (
             <>
-              <Link to={`/users/edit/${cellValues.row.id}`}>
+              <Link to={`/users/edit/${cellValues.row.typeId}`}>
                 <IconButton aria-label="edit">
                   <Edit />
                 </IconButton>
@@ -75,7 +75,7 @@ export const Users = () => {
                 aria-label="delete"
                 onClick={() => {
                   const confirm = window.confirm(
-                    `Confirm deletion of user ${cellValues.row.id}?`,
+                    `Confirm deletion of user ${cellValues.row.typeId}?`,
                   );
 
                   if (!confirm) {
@@ -116,26 +116,6 @@ export const Users = () => {
       {localError && (
         <div style={{ color: "red" }}>Something went wrong: {localError}</div>
       )}
-
-      <div
-        style={{
-          marginBottom: "1rem",
-        }}
-      >
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "flex-end",
-            marginBottom: ".25rem",
-          }}
-        >
-          <Link to="/users/add">
-            <Button variant="contained" color="success">
-              Add user
-            </Button>
-          </Link>
-        </div>
-      </div>
 
       <div
         style={{

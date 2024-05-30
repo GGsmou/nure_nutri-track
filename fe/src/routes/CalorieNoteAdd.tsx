@@ -69,7 +69,7 @@ const CalorieNoteAdd = () => {
     form.setValue("userId", item.userId || user.id);
     form.setValue(
       "createdAt",
-      item.createdAt || formatDateToYYYYMMDD(new Date()),
+      item.createdAt.split("T")[0] || formatDateToYYYYMMDD(new Date()),
     );
     form.setValue("calorie", item.calorie || 0);
     form.setValue("recepieId", item.recepieId || "");
@@ -96,7 +96,7 @@ const CalorieNoteAdd = () => {
       .then(() => {
         achieve
           .mutateAsync({
-            id: user.id,
+            id: user.typeId,
             achievement: "ateHealthy",
           })
           .then(() => {

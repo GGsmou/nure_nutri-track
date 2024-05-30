@@ -99,7 +99,7 @@ const RecepiesAdd = () => {
       .then(() => {
         achieve
           .mutateAsync({
-            id: user.id,
+            id: user.typeId,
             achievement: "chef",
           })
           .then(() => {

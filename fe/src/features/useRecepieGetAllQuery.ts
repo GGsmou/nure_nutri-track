@@ -8,7 +8,7 @@ export const useRecepieGetAllQuery = (filter: { id?: string }) => {
     queryKey: ["recepies", filter],
     queryFn: async () => {
       return (await fetchAbstract(
-        urlBuilder("Recipes", filter),
+        urlBuilder("Recipes", filter, true),
         "GET",
       )) as Recepie[];
     },
