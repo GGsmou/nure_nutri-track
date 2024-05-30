@@ -2,6 +2,7 @@ export interface User {
   id: string;
   userName: string;
   email: string;
+  userType: UserType;
 }
 export type UserType = {
   id: string;
