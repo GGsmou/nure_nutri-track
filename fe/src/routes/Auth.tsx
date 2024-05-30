@@ -7,7 +7,7 @@ import {
   Typography,
   createTheme,
 } from "@mui/material";
-
+import { useAuthForm } from "../features/useAuthForm";
 const theme = createTheme({
   palette: {
     primary: { main: "#54BD95" },
@@ -15,6 +15,7 @@ const theme = createTheme({
 });
 
 export const Auth = () => {
+  const { fields, handlers } = useAuthForm();
   return (
     <ThemeProvider theme={theme}>
       <Box
@@ -59,8 +60,8 @@ export const Auth = () => {
                 gap: "20px",
               }}
             >
-              <TextField label="Email" />
-              <TextField label="Password" />
+              <TextField {...fields.email} />
+              <TextField type="password" {...fields.password} />
             </Box>
             <Box
               sx={{
@@ -89,6 +90,7 @@ export const Auth = () => {
                     textTransform: "none",
                     borderRadius: "20px",
                   }}
+                  onClick={handlers.signIn}
                 >
                   Sign In
                 </Button>
@@ -100,6 +102,7 @@ export const Auth = () => {
                     textTransform: "none",
                     borderRadius: "20px",
                   }}
+                  onClick={handlers.signUp}
                 >
                   Sign Up
                 </Button>
