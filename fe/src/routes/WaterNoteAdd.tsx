@@ -28,7 +28,7 @@ const WaterNoteAdd = () => {
       }
     : {};
   const items = useWaterNoteGetAllQuery(filter);
-  const item = items.data as unknown as WaterNote;
+  const item = items.data?.[0] as unknown as WaterNote;
   const [error, setError] = useState<string>("");
 
   const users = useUserGetAllQuery({});
@@ -64,7 +64,7 @@ const WaterNoteAdd = () => {
     form.setValue("userId", item.userId || user.id);
     form.setValue(
       "createdAt",
-      item.createdAt || formatDateToYYYYMMDD(new Date()),
+      item.createdAt.split("T")[0] || formatDateToYYYYMMDD(new Date()),
     );
     form.setValue("ml", item.ml || 0);
   }, [items.data, isEdit, form, item, user.id]);
@@ -89,7 +89,7 @@ const WaterNoteAdd = () => {
       .then(() => {
         achieve
           .mutateAsync({
-            id: user.id,
+            id: user.typeId,
             achievement: "hydrated",
           })
           .then(() => {

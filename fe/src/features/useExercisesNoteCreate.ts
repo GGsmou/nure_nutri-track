@@ -14,6 +14,10 @@ export const useExercisesNoteCreate = (
 ) => {
   return useMutation((data: ExercisesNote) => {
     const type = filter.type === "edit" ? "PUT" : "POST";
-    return fetchAbstract("ExercisesNotes/", type, data);
+    return fetchAbstract("ExercisesNotes/", type, {
+      ...data,
+      createdAt: new Date(data.createdAt).toISOString(),
+      calories: data.calorie,
+    });
   });
 };

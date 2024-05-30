@@ -28,7 +28,7 @@ const ExerciseNoteAdd = () => {
       }
     : {};
   const items = useExerciseNoteGetAllQuery(filter);
-  const item = items.data as unknown as ExercisesNote;
+  const item = items.data?.[0] as unknown as ExercisesNote;
   const [error, setError] = useState<string>("");
 
   const achieve = useUserDoneAchievement();
@@ -69,7 +69,7 @@ const ExerciseNoteAdd = () => {
     form.setValue("userId", item.userId || user.id);
     form.setValue(
       "createdAt",
-      item.createdAt || formatDateToYYYYMMDD(new Date()),
+      item.createdAt.split("T")[0] || formatDateToYYYYMMDD(new Date()),
     );
     form.setValue("calorie", item.calorie || 0);
     form.setValue("exerciseId", item.exerciseId || "");
@@ -96,7 +96,7 @@ const ExerciseNoteAdd = () => {
       .then(() => {
         achieve
           .mutateAsync({
-            id: user.id,
+            id: user.typeId,
             achievement: "exercised",
           })
           .then(() => {
@@ -243,6 +243,12 @@ const ExerciseNoteAdd = () => {
                     disablePortal
                     onChange={(_, value) => {
                       field.onChange(value || "");
+                      form.setValue(
+                        "calorie",
+                        (exercises.data || []).find(
+                          (exercise) => exercise.id === value,
+                        )?.calories || 0,
+                      );
                     }}
                     value={field.value}
                     options={[
