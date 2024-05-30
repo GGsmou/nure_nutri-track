@@ -4,6 +4,7 @@ import { useMutation } from "react-query";
 import * as yup from "yup";
 import { LoginBody, LoginResponse, RegisterBody } from "../types/Identity";
 import { fetchAbstract } from "../utils/fetchAbstract";
+import { authService } from "../utils/authService";
 
 const AuthFormSchema = yup.object().shape({
   email: yup.string().email().required(),
@@ -37,7 +38,8 @@ export const useAuthForm = () => {
     handlers: {
       signIn: handleSubmit(async (data) => {
         try {
-          const { token } = await signIn(data);
+          const authInfo = await signIn(data);
+          authService.setAuthInfo(authInfo);
         } catch (e) {
           setError("email", { message: "Invalid email or password" });
           setError("password", { message: "Invalid email or password" });
@@ -46,7 +48,8 @@ export const useAuthForm = () => {
       signUp: handleSubmit(async (data) => {
         try {
           await signUp({ ...data, username: data.email });
-          const { token } = await signIn(data);
+          const authInfo = await signIn(data);
+          authService.setAuthInfo(authInfo);
         } catch (e) {
           setError("email", { message: "This email already in use" });
         }
