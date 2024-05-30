@@ -47,12 +47,6 @@ export const Users = () => {
         sortable: false,
       },
       {
-        field: "email",
-        headerName: "Email",
-        type: "string",
-        sortable: false,
-      },
-      {
         field: "bannedIngredients",
         headerName: "Banned Ingredients",
         type: "string",
