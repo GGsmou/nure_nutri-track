@@ -43,31 +43,27 @@ public class CalorieNotesController : ControllerBase
         var calorieNote = new CalorieNote()
         {
             Calorie = request.Calorie,
-            CreatedAt = request.CreatedAt
+            CreatedAt = request.CreatedAt,
+            UserId = request.UserId
         };
         
         await _calorieNoteRepository.CreateAsync(calorieNote);
-    
-        var user = await _identityService.GetUserByIdWithRelationsAsync(request.UserId);
 
-        if (user == null) return NotFound();
-
-        var userRecipe = new UserRecipe()
-        {
-            UserId = request.UserId,
-            RecipeId = request.RecipeId,
-            CCalorieNoteId = calorieNote.Id
-        };
-        
-        await _userRecipeRepository.CreateAsync(userRecipe);
-
-        return Ok(userRecipe);
+        return Ok(calorieNote);
     }
 
     [HttpPut]
-    public async Task<IActionResult> Update([FromBody] CalorieNote calorieNote)
-    { 
-        await _calorieNoteRepository.UpdateAsync(calorieNote);
+    public async Task<IActionResult> Update([FromBody] AddCalorieNoteRequest calorieNote)
+    {
+        var existingCalorieNote = await _calorieNoteRepository.GetByIdAsync((Guid)calorieNote.Id!);
+
+        if (existingCalorieNote == null) return NotFound();
+
+        existingCalorieNote.Calorie = calorieNote.Calorie;
+        existingCalorieNote.CreatedAt = calorieNote.CreatedAt;
+        existingCalorieNote.UserId = calorieNote.UserId;
+        
+        await _calorieNoteRepository.UpdateAsync(existingCalorieNote);
 
         return Ok(calorieNote);
     }

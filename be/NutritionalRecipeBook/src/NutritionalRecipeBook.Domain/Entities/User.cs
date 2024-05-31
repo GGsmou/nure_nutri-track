@@ -15,6 +15,8 @@ namespace NutritionalRecipeBook.Domain.Entities
         public List<RecipeComment> RecipeComments { get; set; }
         
         public List<ExercisesNote> ExercisesNotes { get; set; }
+        
+        public List<CalorieNote> CalorieNotes { get; set; }
 
         public UserType? UserType { get; set; }
     }
