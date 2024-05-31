@@ -18,6 +18,9 @@ import RecepiesDetails from "./routes/RecepiesDetails";
 import UsersSettings from "./routes/UsersSettings";
 import CompanyStats from "./routes/CompanyStats";
 import { Landing } from "./routes/Landing";
+import { Auth } from "./routes/Auth";
+import { NewUser } from "./routes/NewUser";
+import { Home } from "./routes/Home";
 
 const queryClient = new QueryClient();
 
@@ -27,8 +30,10 @@ const Router = () => {
       <HashRouter>
         <Routes>
           <Route path="/landing" element={<Landing />} />
+          <Route path="/auth" element={<Auth />} />
+          <Route path="/new-user" element={<NewUser />} />
           <Route path="/" element={<App />}>
-            <Route index element={<>Welcome to NutriTrack</>} />
+            <Route index element={<Home />} />
             <Route path="*" element={<>404</>} />
 
             <Route path="users" element={<Users />} />
