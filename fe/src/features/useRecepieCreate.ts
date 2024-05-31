@@ -23,7 +23,7 @@ export const useRecepieCreate = (
       newIngredientIds: [],
       existingIngredients: [],
       newIngredients: [],
-      servingSizeInGrams: data.votes,
+      votes: data.votes,
     });
   });
 };

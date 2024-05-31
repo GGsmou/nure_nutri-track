@@ -7,7 +7,7 @@ export const useRecepieChangeVote = () => {
     (data: { res: Recepie; id: string; type: "up" | "down" }) => {
       return fetchAbstract("Recipes/", "PUT", {
         ...data.res,
-        servingSizeInGrams: data.res.votes + (data.type === "up" ? 1 : -1),
+        votes: data.res.votes + (data.type === "up" ? 1 : -1),
         newIngredientIds: [],
         existingIngredients: [],
         newIngredients: [],
