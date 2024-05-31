@@ -10,11 +10,9 @@ namespace NutritionalRecipeBook.Domain.Entities
 
         public double Calories { get; set; } 
 
-        public string UserId { get; set; }
-
         public List<RecipeIngredient> Ingredients { get; set; }
 
-        public double? Votes { get; set; }
+        public int? Votes { get; set; }
 
         public bool? IsPremium { get; set; }
         
@@ -22,12 +20,11 @@ namespace NutritionalRecipeBook.Domain.Entities
 
         public Recipe() { }
 
-        public Recipe(RecipeSpecification specification, string userId)
+        public Recipe(RecipeSpecification specification)
         {
             Name = specification.Name;
             Description = specification.Description;
             Calories = specification.Calories;
-            UserId = userId;
         }
     } 
 }

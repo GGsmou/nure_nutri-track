@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NutritionalRecipeBook.Infrastructure;
 
@@ -11,9 +12,11 @@ using NutritionalRecipeBook.Infrastructure;
 namespace NutritionalRecipeBook.Infrastructure.Migrations
 {
     [DbContext(typeof(RecipeBookContext))]
-    partial class RecipeBookContextModelSnapshot : ModelSnapshot
+    [Migration("20240530145210_DeleteUserIdFromRecipe")]
+    partial class DeleteUserIdFromRecipe
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -322,37 +325,37 @@ namespace NutritionalRecipeBook.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("567ba975-9001-4e7e-b8f7-673110ddddda"),
+                            Id = new Guid("bfb2b567-170a-4afc-bc3b-544e46ef18fa"),
                             Name = "Tomato"
                         },
                         new
                         {
-                            Id = new Guid("9cad758c-b689-499f-a8df-f3eeef122072"),
+                            Id = new Guid("fd7962f4-fe4e-4b91-a4e0-8ed1b282f7c5"),
                             Name = "Lettuce"
                         },
                         new
                         {
-                            Id = new Guid("8cd50b33-ab8a-4ea7-9dfd-d617e635d06c"),
+                            Id = new Guid("73c48669-bb3e-4f6c-934a-02ac1d43d060"),
                             Name = "Cucumber"
                         },
                         new
                         {
-                            Id = new Guid("f936a0af-e415-4678-9b09-1cc7e405c20c"),
+                            Id = new Guid("93f49b2f-6996-4322-b1ca-9ca74ba99947"),
                             Name = "Carrot"
                         },
                         new
                         {
-                            Id = new Guid("6eb21770-5dd3-429a-ab62-1555b0d36630"),
+                            Id = new Guid("1836aae7-675d-42dc-b28a-172dd2e3c137"),
                             Name = "Onion"
                         },
                         new
                         {
-                            Id = new Guid("b0a4da29-0529-4e30-a33d-6da4e48bb35d"),
+                            Id = new Guid("e2799f88-709c-40b9-a21c-bbc31689e440"),
                             Name = "Garlic"
                         },
                         new
                         {
-                            Id = new Guid("27c9d58c-c8ef-435d-b1a4-1f59f5616504"),
+                            Id = new Guid("17b82c33-f9c4-4d95-a336-04f68fd61ce2"),
                             Name = "Bell Pepper"
                         });
                 });
@@ -382,8 +385,8 @@ namespace NutritionalRecipeBook.Infrastructure.Migrations
                         .HasMaxLength(128)
                         .HasColumnType("nvarchar");
 
-                    b.Property<int?>("Votes")
-                        .HasColumnType("int");
+                    b.Property<double?>("Votes")
+                        .HasColumnType("float");
 
                     b.HasKey("Id");
 
