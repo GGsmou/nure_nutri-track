@@ -1,7 +1,7 @@
 import { useContext, useMemo, useState } from "react";
 import { Box, Button, IconButton, LinearProgress } from "@mui/material";
 import { Link } from "react-router-dom";
-import { Delete, Edit } from "@mui/icons-material";
+import { Delete } from "@mui/icons-material";
 import { GridColDef } from "@mui/x-data-grid";
 import { useCalorieNoteGetAllQuery } from "../features/useCalorieNoteGetAllQuery";
 import { UserContext } from "../components/Fallback";
@@ -45,12 +45,6 @@ export const CalorieNote = () => {
         sortable: false,
       },
       {
-        field: "recepieName",
-        headerName: "Recipe",
-        type: "string",
-        sortable: false,
-      },
-      {
         field: "actions",
         headerName: "Actions",
         sortable: false,
@@ -58,11 +52,11 @@ export const CalorieNote = () => {
         renderCell: (cellValues) => {
           return (
             <>
-              <Link to={`/calories/edit/${cellValues.row.id}`}>
+              {/* <Link to={`/calories/edit/${cellValues.row.id}`}>
                 <IconButton aria-label="edit">
                   <Edit />
                 </IconButton>
-              </Link>
+              </Link> */}
               <IconButton
                 aria-label="delete"
                 onClick={() => {
@@ -106,8 +100,12 @@ export const CalorieNote = () => {
   }, [caloryNoteDelete, refetch, isAdmin]);
 
   const callories = useMemo(() => {
-    return data?.reduce((acc, row) => acc + row.calorie, 0) || 0;
-  }, [data]);
+    return (
+      data
+        ?.filter((row) => row.userId === user.id)
+        ?.reduce((acc, row) => acc + row.calorie, 0) || 0
+    );
+  }, [data, user.id]);
 
   return (
     <>
@@ -146,7 +144,7 @@ export const CalorieNote = () => {
             }}
           >
             <span>{callories}</span>
-            <span>{(callories / user.dailyCalories) * 100} %</span>
+            <span>{((callories / user.dailyCalories) * 100).toFixed(2)} %</span>
             <span>{user.dailyCalories}</span>
           </div>
 

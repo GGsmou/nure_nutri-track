@@ -15,7 +15,6 @@ import { UserType } from "../types/User";
 import { useUserGetAllQuery } from "../features/useUserGetAllQuery";
 import { useUsersCreate } from "../features/useUsersCreate";
 import { getId } from "../utils/getId";
-import { INGREDIENTS } from "../utils/ingredients";
 
 const UsersAdd = () => {
   const user = useContext(UserContext);
@@ -244,7 +243,7 @@ const UsersAdd = () => {
               )}
             />
 
-            <Controller
+            {/* <Controller
               name="bannedIngredients"
               control={form.control}
               render={({ field }) => (
@@ -263,7 +262,7 @@ const UsersAdd = () => {
                   />
                 </FormControl>
               )}
-            />
+            /> */}
 
             <Controller
               name="dailyCalories"

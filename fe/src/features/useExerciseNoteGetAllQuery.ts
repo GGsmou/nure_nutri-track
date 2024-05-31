@@ -35,7 +35,7 @@ export const useExerciseNoteGetAllQuery = (filter: {
         })
         .filter((ex) => {
           if (!filter.createdAt) return true;
-          return ex.createdAt === filter.createdAt;
+          return ex.createdAt.split("T")[0] === filter.createdAt;
         }) as ExercisesNote[];
     },
   });

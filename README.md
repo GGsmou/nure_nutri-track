@@ -8,23 +8,24 @@ _Checked - to test. Crossed - done_
 
 _to test when BE is ready_
 
-- [x] CaloriesNotes for the day
+- [x] ~~CaloriesNotes for the day~~
 - [x] ~~Exercises crud(Admin)~~
 - [x] ~~ExercisesNotes crud~~
 - [x] ~~Water crud~~
-- [x] User crud(Admin)
-- [x] Recipes crud
+- [x] ~~User crud(Admin)~~
+- [x] ~~Recipes crud~~
 - [x] Recipes details with comments and upvotes
-- [x] User settings for banned products
 - [x] ~~Calories limit~~
-- [x] Set goal for loose/gain weight + graphs + predictions graphs
+- [x] ~~Set goal for loose/gain weight + graphs + predictions graphs~~
 - [x] ~~Achievements~~
 - [x] ~~Company statistics(t-3)~~
 
 ### FE Integrations
 
-- [ ] Landing(figma) + apk for mobile app
-- [ ] Google auth + custom auth
+- [x] ~~Landing(figma)~~
+- [ ] Apk for mobile app
+- [x] ~~Custom auth~~
+- [ ] Google auth
 - [ ] Stripe sandbox payment for 3 tiers
 - [ ] Google calendar goals integration
 - [ ] Share goal progress in Twitter + mark social achievement as done

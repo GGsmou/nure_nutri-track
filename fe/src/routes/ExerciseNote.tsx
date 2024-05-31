@@ -19,6 +19,7 @@ export const ExerciseNote = () => {
     userId: isAdmin ? undefined : user.id,
     createdAt: isAdmin ? undefined : formatDateToYYYYMMDD(new Date()),
   });
+  console.log(user.id);
   const caloryNoteDelete = useExerciseNoteDelete();
   const [localError, setLocalError] = useState<string>("");
 

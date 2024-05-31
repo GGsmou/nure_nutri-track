@@ -1,12 +1,11 @@
 import { useContext, useMemo, useState } from "react";
 import { IconButton } from "@mui/material";
 import { Link } from "react-router-dom";
-import { Delete, Edit } from "@mui/icons-material";
+import { Edit } from "@mui/icons-material";
 import { GridColDef } from "@mui/x-data-grid";
 import { UserContext } from "../components/Fallback";
 import { getStyledDataGrid } from "../utils/getStyledDataGrid";
 import { useUserGetAllQuery } from "../features/useUserGetAllQuery";
-import { useUserDelete } from "../features/useUserDelete";
 
 const StyledDataGrid = getStyledDataGrid();
 
@@ -14,9 +13,8 @@ export const Users = () => {
   const user = useContext(UserContext);
   const isAdmin = user.role === "admin";
 
-  const { error, isLoading, data, refetch } = useUserGetAllQuery({});
-  const deleteU = useUserDelete();
-  const [localError, setLocalError] = useState<string>("");
+  const { error, isLoading, data } = useUserGetAllQuery({});
+  const [localError] = useState<string>("");
 
   const rows = data || [];
 
@@ -46,12 +44,12 @@ export const Users = () => {
         type: "string",
         sortable: false,
       },
-      {
-        field: "bannedIngredients",
-        headerName: "Banned Ingredients",
-        type: "string",
-        sortable: false,
-      },
+      // {
+      //   field: "bannedIngredients",
+      //   headerName: "Banned Ingredients",
+      //   type: "string",
+      //   sortable: false,
+      // },
       {
         field: "actions",
         headerName: "Actions",
@@ -65,7 +63,7 @@ export const Users = () => {
                   <Edit />
                 </IconButton>
               </Link>
-              <IconButton
+              {/* <IconButton
                 aria-label="delete"
                 onClick={() => {
                   const confirm = window.confirm(
@@ -88,13 +86,13 @@ export const Users = () => {
                 }}
               >
                 <Delete />
-              </IconButton>
+              </IconButton> */}
             </>
           ) as React.JSX.Element;
         },
       },
     ] as GridColDef[];
-  }, [deleteU, refetch]);
+  }, []);
 
   if (!isAdmin) {
     return <div>Access denied</div>;

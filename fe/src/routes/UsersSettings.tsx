@@ -46,11 +46,11 @@ const UsersSettings = () => {
   });
 
   const calNotesQ = useCalorieNoteGetAllQuery({
-    userId: user.id,
+    userId: usr.id,
   });
 
   const exNotesQ = useExerciseNoteGetAllQuery({
-    userId: user.id,
+    userId: usr.id,
   });
 
   const preparedCalNotes = useMemo(() => {
@@ -160,8 +160,9 @@ const UsersSettings = () => {
   const navigate = useNavigate();
 
   const form = useForm<UserType>({
-    defaultValues: {
-      id: user.typeId,
+    values: {
+      id: user.id,
+      typeId: user.typeId,
       name: user.name,
       role: user.role,
       subscription: user.subscription,
@@ -186,7 +187,6 @@ const UsersSettings = () => {
     mutation
       .mutateAsync({
         ...data,
-        bannedIngredients: data.bannedIngredients.toString().split(", "),
       })
       .then(() => {
         navigate("/");
@@ -251,7 +251,7 @@ const UsersSettings = () => {
               flexWrap: "wrap",
             }}
           >
-            <Controller
+            {/* <Controller
               name="bannedIngredients"
               control={form.control}
               render={({ field }) => (
@@ -270,7 +270,7 @@ const UsersSettings = () => {
                   />
                 </FormControl>
               )}
-            />
+            /> */}
 
             <Controller
               name="dailyCalories"

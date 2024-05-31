@@ -35,12 +35,12 @@ export const Recepies = () => {
         type: "string",
         sortable: false,
       },
-      {
-        field: "ingredients",
-        headerName: "Ingredients",
-        type: "string",
-        sortable: false,
-      },
+      // {
+      //   field: "ingredients",
+      //   headerName: "Ingredients",
+      //   type: "string",
+      //   sortable: false,
+      // },
       {
         field: "calories",
         headerName: "Calories",
@@ -65,12 +65,12 @@ export const Recepies = () => {
         type: "boolean",
         sortable: false,
       },
-      {
-        field: "isCreatedByUser",
-        headerName: "Created by user",
-        type: "boolean",
-        sortable: false,
-      },
+      // {
+      //   field: "isCreatedByUser",
+      //   headerName: "Created by user",
+      //   type: "boolean",
+      //   sortable: false,
+      // },
       {
         field: "actions",
         headerName: "Actions",
