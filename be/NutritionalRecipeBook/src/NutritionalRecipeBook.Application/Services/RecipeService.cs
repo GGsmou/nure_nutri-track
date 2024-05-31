@@ -85,20 +85,13 @@ namespace NutritionalRecipeBook.Application.Services
             var recipe = new Recipe(recipeSpecification);
 
             await _recipeRepository.CreateAsync(recipe);
-            await AddIngredients(recipe, request);
+            await AddIngredients(recipe, request.NewIngredientIds);
 
             return Result.Success();
         }
 
         public async Task<Result> UpdateAsync(UpdateRecipeRequest request)
         {
-            var user = await _identityService.FindUserByIdAsync(request.UserId);
-
-            if (user is null)
-            {
-                return Result.Failure(new Error("404", "Such user doesn't exist"));
-            }
-
             var existingRecipe = await _recipeRepository.GetByIdWithRelationsAsync(request.Id);
 
             if (existingRecipe is null)
@@ -106,16 +99,11 @@ namespace NutritionalRecipeBook.Application.Services
                 return Result.Failure(new Error("404", "Such recipe doesn't exist"));
             }
 
-            // if (existingRecipe.UserId == user.Id)
-            // {
-            //     await UpdatePlainProperties(existingRecipe, request);
-            //     await UpdateIngredients(existingRecipe, request);
-            //     await _recipeRepository.UpdateAsync(existingRecipe);
-            //
-            //     return Result.Success();
-            // }
-
-            return Result.Failure(new Error("403", "Recipes can be updated only by creator"));
+            await UpdatePlainProperties(existingRecipe, request);
+            await AddIngredients(existingRecipe, request.NewIngredients);
+            await _recipeRepository.UpdateAsync(existingRecipe);
+            
+            return Result.Success();
         }
 
         public async Task<Result> DeleteByIdAsync(Guid id, string userId)
@@ -144,9 +132,9 @@ namespace NutritionalRecipeBook.Application.Services
             return Result.Failure(new Error("403", "Recipes can be deleted only by creator"));
         }
 
-        private async Task AddIngredients(Recipe recipe, CreateRecipeRequest request)
+        private async Task AddIngredients(Recipe recipe, List<Guid> newIngredientIds)
         {
-            foreach (var ingredientId in request.NewIngredientIds)
+            foreach (var ingredientId in newIngredientIds)
             {
                 var ingredient = await _ingredientRepository.GetByIdAsync(ingredientId);
                 
@@ -162,33 +150,33 @@ namespace NutritionalRecipeBook.Application.Services
             }
         }
 
-        private async Task UpdateIngredients(Recipe recipeToUpdate, UpdateRecipeRequest request)
-        {
-            var existingIngredientsIds = request.ExistingIngredients
-                .Select(i => i.Id);
-
-            var updatedIngredients = await _recipeIngredientRepository
-                .GetManyByPredicateAsync(ri => existingIngredientsIds
-                .Contains(ri.IngredientId) && ri.RecipeId == recipeToUpdate.Id);
-
-            recipeToUpdate.Ingredients = updatedIngredients;
-
-            foreach (var newIngredient in request.NewIngredients)
-            {
-                newIngredient.Id = Guid.NewGuid();
-            }
-
-            await _ingredientRepository.CreateManyAsync(request.NewIngredients);
-
-            var ingredientsToAdd = new List<RecipeIngredient>();
-
-            foreach (var ingredient in request.NewIngredients)
-            {
-                ingredientsToAdd.Add(new RecipeIngredient { Recipe = recipeToUpdate, Ingredient = ingredient });
-            }
-
-            await _recipeIngredientRepository.CreateManyAsync(ingredientsToAdd);
-        }
+        // private async Task UpdateIngredients(Recipe recipeToUpdate, UpdateRecipeRequest request)
+        // {
+        //     var existingIngredientsIds = request.ExistingIngredients
+        //         .Select(i => i.Id);
+        //
+        //     var updatedIngredients = await _recipeIngredientRepository
+        //         .GetManyByPredicateAsync(ri => existingIngredientsIds
+        //         .Contains(ri.IngredientId) && ri.RecipeId == recipeToUpdate.Id);
+        //
+        //     recipeToUpdate.Ingredients = updatedIngredients;
+        //
+        //     foreach (var newIngredient in request.NewIngredients)
+        //     {
+        //         newIngredient.Id = Guid.NewGuid();
+        //     }
+        //
+        //     await _ingredientRepository.CreateManyAsync(request.NewIngredients);
+        //
+        //     var ingredientsToAdd = new List<RecipeIngredient>();
+        //
+        //     foreach (var ingredient in request.NewIngredients)
+        //     {
+        //         ingredientsToAdd.Add(new RecipeIngredient { Recipe = recipeToUpdate, Ingredient = ingredient });
+        //     }
+        //
+        //     await _recipeIngredientRepository.CreateManyAsync(ingredientsToAdd);
+        // }
 
         private async Task UpdatePlainProperties(Recipe recipeToUpdate, UpdateRecipeRequest request)
         {

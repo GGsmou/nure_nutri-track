@@ -22,12 +22,6 @@ namespace NutritionalRecipeBook.Api.Validators
                 .Length(2, 500)
                 .WithMessage("Length ({TotalLength}) of {PropertyName} is invalid.");
 
-            RuleForEach(cr => cr.ExistingIngredients)
-                .SetValidator(new IngredientValidator());
-
-            RuleForEach(cr => cr.NewIngredients)
-                .SetValidator(new IngredientValidator());
-
         }
     }
 }
