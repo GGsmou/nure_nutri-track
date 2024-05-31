@@ -6,9 +6,13 @@ import { urlBuilder } from "../utils/urlBuilder";
 import { authService } from "../utils/authService";
 
 export const useCurrentUser = () => {
-  return useQuery("currentUser", async () => {
+  return useQuery("user", async () => {
+    const id = authService.getAuthInfo().userId;
+    if (!id) {
+      return;
+    }
     const user = (await fetchAbstract(
-      urlBuilder("users", { id: authService.getAuthInfo().userId }, true),
+      urlBuilder("users", { id }, true),
       "GET",
     )) as User;
     return {
