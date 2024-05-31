@@ -12,7 +12,7 @@ namespace NutritionalRecipeBook.Domain.Entities
 
         public List<RecipeIngredient> Ingredients { get; set; }
 
-        public double? Votes { get; set; }
+        public int? Votes { get; set; }
 
         public bool? IsPremium { get; set; }
         
