@@ -65,9 +65,29 @@ public class CalorieNotesController : ControllerBase
     }
 
     [HttpPut]
-    public async Task<IActionResult> Update([FromBody] CalorieNote calorieNote)
-    { 
-        await _calorieNoteRepository.UpdateAsync(calorieNote);
+    public async Task<IActionResult> Update([FromBody] AddCalorieNoteRequest calorieNote)
+    {
+        var existingCalorieNote = await _calorieNoteRepository.GetByIdAsync((Guid)calorieNote.Id!);
+
+        if (existingCalorieNote == null) return NotFound();
+
+        existingCalorieNote.CreatedAt = calorieNote.CreatedAt;
+        existingCalorieNote.Calorie = calorieNote.Calorie;
+        
+        await _calorieNoteRepository.UpdateAsync(existingCalorieNote);
+        
+        var user = await _identityService.GetUserByIdWithRelationsAsync(calorieNote.UserId);
+
+        if (user == null) return NotFound();
+
+        var userRecipe = new UserRecipe()
+        {
+            UserId = calorieNote.UserId,
+            RecipeId = calorieNote.RecipeId,
+            CCalorieNoteId = calorieNote.Id
+        };
+        
+        await _userRecipeRepository.CreateAsync(userRecipe);
 
         return Ok(calorieNote);
     }
