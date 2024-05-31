@@ -8,15 +8,23 @@ import { UserContext } from "../components/Fallback";
 import { formatDateToYYYYMMDD } from "../utils/parseDate";
 import { useCalorieNoteDelete } from "../features/useCalorieNoteDelete";
 import { getStyledDataGrid } from "../utils/getStyledDataGrid";
+import { UserType } from "../types/User";
+import { useUserGetAllQuery } from "../features/useUserGetAllQuery";
 
 const StyledDataGrid = getStyledDataGrid();
 
 export const CalorieNote = () => {
-  const user = useContext(UserContext);
+  const usr = useContext(UserContext);
+
+  const usQ = useUserGetAllQuery({
+    id: usr.typeId,
+  });
+
+  const user = usQ.data?.[0] || ({} as unknown as UserType);
   const isAdmin = user.role === "admin";
 
   const { error, isLoading, data, refetch } = useCalorieNoteGetAllQuery({
-    userId: isAdmin ? undefined : user.id,
+    userId: isAdmin ? undefined : usr.id,
     createdAt: isAdmin ? undefined : formatDateToYYYYMMDD(new Date()),
   });
   const caloryNoteDelete = useCalorieNoteDelete();
@@ -102,10 +110,10 @@ export const CalorieNote = () => {
   const callories = useMemo(() => {
     return (
       data
-        ?.filter((row) => row.userId === user.id)
+        ?.filter((row) => row.userId === usr.id)
         ?.reduce((acc, row) => acc + row.calorie, 0) || 0
     );
-  }, [data, user.id]);
+  }, [data, usr.id]);
 
   return (
     <>

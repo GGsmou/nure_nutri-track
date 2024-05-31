@@ -3,9 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import {
   Button,
-  Checkbox,
   FormControl,
-  FormControlLabel,
   MenuItem,
   Select,
   TextField,
@@ -330,7 +328,7 @@ const UsersAdd = () => {
               )}
             />
 
-            <Controller
+            {/* <Controller
               name="hydrated"
               control={form.control}
               render={({ field }) => (
@@ -447,7 +445,7 @@ const UsersAdd = () => {
                   label="Social"
                 />
               )}
-            />
+            /> */}
           </form>
 
           <div

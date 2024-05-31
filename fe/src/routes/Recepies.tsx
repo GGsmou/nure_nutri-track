@@ -18,7 +18,17 @@ export const Recepies = () => {
   const deleteU = useRecepieDelete();
   const [localError, setLocalError] = useState<string>("");
 
-  const rows = data || [];
+  const rows = (data || []).filter((r) => {
+    if (user.role === "admin") {
+      return true;
+    }
+
+    if (user.subscription === "t-1") {
+      return r.isPremium === false;
+    }
+
+    return true;
+  });
 
   const columns = useMemo(() => {
     return [
