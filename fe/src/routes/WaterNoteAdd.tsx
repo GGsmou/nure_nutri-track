@@ -78,7 +78,7 @@ const WaterNoteAdd = () => {
       !data.ml ||
       !data.createdAt ||
       !datePattern.test(data.createdAt) ||
-      !data.userId
+      (user.role === "admin" && !data.userId)
     ) {
       setError("Fill all fields");
       return;

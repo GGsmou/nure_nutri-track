@@ -117,7 +117,7 @@ const RecepiesAdd = () => {
     setError("");
   };
 
-  if (user.role !== "admin" && item && !item.isCreatedByUser) {
+  if (user.role !== "admin" && item && !item.isCreatedByUser && isEdit) {
     return <div>Access denied</div>;
   }
 
