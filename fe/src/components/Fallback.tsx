@@ -1,6 +1,7 @@
 import { ReactNode, createContext } from "react";
 import { UserType } from "../types/User";
 import { useCurrentUser } from "../features/useCurrentUser";
+import { useNavigate } from "react-router-dom";
 
 export const UserContext = createContext<UserType>({} as UserType);
 // {
@@ -27,6 +28,7 @@ export const UserContext = createContext<UserType>({} as UserType);
 // };
 export const AuthFallback = ({ children }: { children: ReactNode }) => {
   const { isLoading, data } = useCurrentUser();
+  const navigate = useNavigate();
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -34,7 +36,7 @@ export const AuthFallback = ({ children }: { children: ReactNode }) => {
 
   if (!data) {
     setTimeout(() => {
-      window.location.assign("/auth");
+      navigate("/auth");
     }, 1000);
 
     return <div>Not authorized. Redirecting...</div>;
