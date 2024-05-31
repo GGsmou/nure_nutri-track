@@ -11,6 +11,7 @@ import { BarChart, LineChart } from "@mui/x-charts";
 
 import { useExerciseNoteGetAllQuery } from "../features/useExerciseNoteGetAllQuery";
 import { ExercisesNote } from "../types/ExercisesNote";
+import { useUserGetAllQuery } from "../features/useUserGetAllQuery";
 
 const MIDDLE_CCALS_PER_DAY = 2000;
 
@@ -28,13 +29,19 @@ const calcDays = () => {
 const days = calcDays();
 
 const UsersSettings = () => {
-  const user = useContext(UserContext);
+  const usr = useContext(UserContext);
+
+  const usQ = useUserGetAllQuery({
+    id: usr.typeId,
+  });
+
+  const user = usQ.data?.[0] || ({} as unknown as UserType);
   const [error, setError] = useState<string>("");
 
   const mutation = useUsersCreate({
     type: "edit",
     data: {
-      id: user.id,
+      id: user.typeId,
     },
   });
 
@@ -52,18 +59,30 @@ const UsersSettings = () => {
     }
 
     const c = [...calNotesQ.data]
-      .sort((a, b) => +b.createdAt - +a.createdAt)
+      .sort((a, b) => +new Date(b.createdAt) - +new Date(a.createdAt))
       .reduce((acc: Record<string, number>, curr: CalorieNote) => {
-        if (!acc[curr.createdAt]) {
-          acc[curr.createdAt] = 0;
+        const crAt = curr.createdAt.split("T")[0].split("-")[2];
+
+        if (!acc[crAt]) {
+          acc[crAt] = 0;
         }
 
-        acc[curr.createdAt] += curr.calorie;
+        acc[crAt] += curr.calorie;
 
         return acc;
       }, {});
 
-    return Object.values(c).slice(0, 31);
+    return Array.from({ length: 31 }, (_, i) => {
+      return (
+        c[
+          Object.keys(c)
+            .find((v) => {
+              return +v === i + 1;
+            })
+            ?.toString() || ""
+        ] || 0
+      );
+    });
   }, [calNotesQ.data]);
 
   const preparedExNotes = useMemo(() => {
@@ -72,25 +91,37 @@ const UsersSettings = () => {
     }
 
     const c = [...exNotesQ.data]
-      .sort((a, b) => +b.createdAt - +a.createdAt)
+      .sort((a, b) => +new Date(b.createdAt) - +new Date(a.createdAt))
       .reduce((acc: Record<string, number>, curr: ExercisesNote) => {
-        if (!acc[curr.createdAt]) {
-          acc[curr.createdAt] = 0;
+        const crAt = curr.createdAt.split("T")[0].split("-")[2];
+
+        if (!acc[crAt]) {
+          acc[crAt] = 0;
         }
 
-        acc[curr.createdAt] += curr.calorie;
+        acc[crAt] += curr.calorie;
 
         return acc;
       }, {});
 
-    return Object.values(c).slice(0, 31);
+    return Array.from({ length: 31 }, (_, i) => {
+      return (
+        c[
+          Object.keys(c)
+            .find((v) => {
+              return +v === i + 1;
+            })
+            ?.toString() || ""
+        ] || 0
+      );
+    });
   }, [exNotesQ.data]);
 
   const [daysData, kilos, newWeight] = useMemo(() => {
     let total = 0;
 
     const ccals = new Array(days.length).fill(0).map((_, i) => {
-      if (i + 1 >= new Date().getDate()) {
+      if (i >= new Date().getDate()) {
         return 0;
       }
 
@@ -130,12 +161,12 @@ const UsersSettings = () => {
 
   const form = useForm<UserType>({
     defaultValues: {
-      id: user.id,
+      id: user.typeId,
       name: user.name,
       role: user.role,
       subscription: user.subscription,
       email: user.email,
-      bannedIngredients: user.bannedIngredients.join(", ") as unknown as [],
+      bannedIngredients: user.bannedIngredients?.join(", ") as unknown as [],
       dailyCalories: user.dailyCalories,
       weight: user.weight,
       desiredWeight: user.desiredWeight,
@@ -164,6 +195,10 @@ const UsersSettings = () => {
         setError(err.message);
       });
   });
+
+  if (usQ.isLoading) {
+    return <>Loading...</>;
+  }
 
   return (
     <>

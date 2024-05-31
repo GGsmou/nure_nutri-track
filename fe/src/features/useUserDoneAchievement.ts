@@ -10,19 +10,19 @@ import {
 
 export const useUserDoneAchievement = () => {
   return useMutation(async (data: { id: string; achievement: string }) => {
-    const us = (
-      (await fetchAbstract(
-        urlBuilder(
-          "UserTypes",
-          {
-            id: data.id,
-          },
-          true,
-        ),
-        "GET",
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      )) as unknown as Array<any>
-    )[0];
+    let us = await fetchAbstract(
+      urlBuilder(
+        "UserTypes",
+        {
+          id: data.id,
+        },
+        true,
+      ),
+      "GET",
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    );
+    us = Array.isArray(us) ? us : [us];
+    us = us[0] as unknown as Record<string, unknown>;
     const uss = {
       ...us,
       id: us.userId,

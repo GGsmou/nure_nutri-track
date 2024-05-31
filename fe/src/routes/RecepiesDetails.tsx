@@ -21,7 +21,7 @@ const RecepiesDetails = () => {
       }
     : {};
   const items = useRecepieGetAllQuery(filter);
-  const item = items.data as unknown as Recepie;
+  const item = items.data?.[0] as unknown as Recepie;
 
   const [error, setError] = useState<string>("");
 
@@ -38,7 +38,7 @@ const RecepiesDetails = () => {
   const form = useForm<RecepieComment>({
     defaultValues: {
       id: "",
-      userId: user.id,
+      userId: user.typeId,
       userName: user.name,
       recepieId: id || "",
       comment: "",
@@ -182,7 +182,7 @@ const RecepiesDetails = () => {
                   marginBottom: 5,
                 }}
               >
-                {comment.userName} says:
+                {comment.userId} says:
               </h5>
               <p>{comment.comment}</p>
             </div>
