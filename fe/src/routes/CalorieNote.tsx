@@ -170,6 +170,8 @@ export const CalorieNote = () => {
           </Box>
           <a
             href={`https://twitter.com/intent/tweet?text=Check%20out%20my%20${callories}%20daily%20calories%20at%20NutriTrack!`}
+            target="_blank"
+            rel="noreferrer"
             onClick={() =>
               !usr.social &&
               doneAchievement({ id: usr.typeId, achievement: "social" })
