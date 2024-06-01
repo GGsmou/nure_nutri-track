@@ -1,7 +1,7 @@
 import { Controller, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { useContext, useMemo, useState } from "react";
-import { Button, FormControl, TextField } from "@mui/material";
+import { Button, FormControl, TextField, Typography } from "@mui/material";
 import { UserContext } from "../components/Fallback";
 import { ACHIEVEMENTS, UserType } from "../types/User";
 import { useUsersCreate } from "../features/useUsersCreate";
@@ -338,7 +338,60 @@ const UsersSettings = () => {
               )}
             />
           </form>
-
+          <Typography variant="h5" textAlign="center" m={2}>
+            Subscriptions
+          </Typography>
+          <div
+            style={{
+              width: "100%",
+              display: "flex",
+              justifyContent: "space-between",
+              gap: "20px",
+              boxSizing: "border-box",
+              padding: "0px 45px",
+              marginBottom: 20,
+            }}
+          >
+            <Button
+              sx={{
+                textTransform: "none",
+              }}
+              fullWidth
+              variant="contained"
+              color="success"
+              size="large"
+              disabled={usr.subscription === "t-1"}
+              onClick={() => navigate("/payment?tier=t-1&success=true")}
+            >
+              Set free tier
+            </Button>
+            <Button
+              sx={{
+                textTransform: "none",
+              }}
+              fullWidth
+              variant="contained"
+              color="success"
+              size="large"
+              disabled={usr.subscription === "t-2"}
+              onClick={() => navigate("/payment?tier=t-2&redirect=true")}
+            >
+              Became a pro!
+            </Button>
+            <Button
+              sx={{
+                textTransform: "none",
+              }}
+              fullWidth
+              variant="contained"
+              color="success"
+              size="large"
+              disabled={usr.subscription === "t-3"}
+              onClick={() => navigate("/payment?tier=t-3&redirect=true")}
+            >
+              Goto Business
+            </Button>
+          </div>
           <div
             style={{ width: "100%", display: "flex", justifyContent: "center" }}
           >

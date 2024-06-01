@@ -21,6 +21,7 @@ import { Landing } from "./routes/Landing";
 import { Auth } from "./routes/Auth";
 import { NewUser } from "./routes/NewUser";
 import { Home } from "./routes/Home";
+import { Payment } from "./routes/Payment";
 
 const queryClient = new QueryClient();
 
@@ -70,6 +71,8 @@ const Router = () => {
             <Route path="settings" element={<UsersSettings />} />
 
             <Route path="stats" element={<CompanyStats />} />
+
+            <Route path="payment" element={<Payment />} />
           </Route>
 
           <Route path="*" element={<>404</>} />
