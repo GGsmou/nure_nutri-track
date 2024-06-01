@@ -10,6 +10,7 @@ import { useCalorieNoteDelete } from "../features/useCalorieNoteDelete";
 import { getStyledDataGrid } from "../utils/getStyledDataGrid";
 import { UserType } from "../types/User";
 import { useUserGetAllQuery } from "../features/useUserGetAllQuery";
+import { Share } from "react-twitter-widgets";
 
 const StyledDataGrid = getStyledDataGrid();
 
@@ -134,34 +135,47 @@ export const CalorieNote = () => {
           marginBottom: "1rem",
         }}
       >
-        <Box sx={{ width: "300px" }}>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-            }}
-          >
-            <b>Daily calories:</b>
-          </div>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              marginBottom: ".25rem",
-              marginTop: ".5rem",
-            }}
-          >
-            <span>{callories}</span>
-            <span>{((callories / user.dailyCalories) * 100).toFixed(2)} %</span>
-            <span>{user.dailyCalories}</span>
-          </div>
+        <Box sx={{ display: "flex", alignItems: "flex-end", gap: "20px" }}>
+          <Box sx={{ width: "300px" }}>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+              }}
+            >
+              <b>Daily calories:</b>
+            </div>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                marginBottom: ".25rem",
 
-          <LinearProgress
-            variant="determinate"
-            value={Math.min((callories / user.dailyCalories) * 100, 100)}
-            color={callories > user.dailyCalories ? "error" : "success"}
+                marginTop: ".5rem",
+              }}
+            >
+              <span>{callories}</span>
+              <span>
+                {((callories / user.dailyCalories) * 100).toFixed(2)} %
+              </span>
+              <span>{user.dailyCalories}</span>
+            </div>
+
+            <LinearProgress
+              variant="determinate"
+              value={Math.min((callories / user.dailyCalories) * 100, 100)}
+              color={callories > user.dailyCalories ? "error" : "success"}
+            />
+          </Box>
+          <Share
+            url={window.location.href}
+            options={{
+              text: `Check out my ${callories} daily calories at NutriTrack!`,
+              size: "large",
+            }}
           />
         </Box>
+
         <div
           style={{
             display: "flex",
@@ -176,7 +190,6 @@ export const CalorieNote = () => {
           </Link>
         </div>
       </div>
-
       <div
         style={{
           height: 550,
