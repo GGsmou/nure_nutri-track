@@ -1,7 +1,7 @@
 import { useContext, useMemo, useState } from "react";
 import { Box, Button, IconButton, LinearProgress } from "@mui/material";
 import { Link } from "react-router-dom";
-import { Delete } from "@mui/icons-material";
+import { Delete, Twitter } from "@mui/icons-material";
 import { GridColDef } from "@mui/x-data-grid";
 import { useCalorieNoteGetAllQuery } from "../features/useCalorieNoteGetAllQuery";
 import { UserContext } from "../components/Fallback";
@@ -10,12 +10,13 @@ import { useCalorieNoteDelete } from "../features/useCalorieNoteDelete";
 import { getStyledDataGrid } from "../utils/getStyledDataGrid";
 import { UserType } from "../types/User";
 import { useUserGetAllQuery } from "../features/useUserGetAllQuery";
-import { Share } from "react-twitter-widgets";
+import { useUserDoneAchievement } from "../features/useUserDoneAchievement";
 
 const StyledDataGrid = getStyledDataGrid();
 
 export const CalorieNote = () => {
   const usr = useContext(UserContext);
+  const { mutateAsync: doneAchievement } = useUserDoneAchievement();
 
   const usQ = useUserGetAllQuery({
     id: usr.typeId,
@@ -167,15 +168,27 @@ export const CalorieNote = () => {
               color={callories > user.dailyCalories ? "error" : "success"}
             />
           </Box>
-          <Share
-            url={window.location.href}
-            options={{
-              text: `Check out my ${callories} daily calories at NutriTrack!`,
-              size: "large",
+          <a
+            href={`https://twitter.com/intent/tweet?text=Check%20out%20my%20${callories}%20daily%20calories%20at%20NutriTrack!`}
+            onClick={() =>
+              !usr.social &&
+              doneAchievement({ id: usr.typeId, achievement: "social" })
+            }
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "5px",
+              textDecoration: "none",
+              backgroundColor: "black",
+              borderRadius: "50px",
+              padding: "5px 10px",
+              color: "white",
             }}
-          />
+          >
+            <Twitter />
+            Share
+          </a>
         </Box>
-
         <div
           style={{
             display: "flex",
