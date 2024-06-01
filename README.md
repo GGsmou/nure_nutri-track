@@ -26,9 +26,9 @@ _to test when BE is ready_
 - [ ] Apk for mobile app
 - [x] ~~Custom auth~~
 - [ ] Google auth
-- [ ] Stripe sandbox payment for 3 tiers
+- [x] ~~Stripe sandbox payment for 3 tiers~~
 - [ ] Google calendar goals integration
-- [ ] Share goal progress in Twitter + mark social achievement as done
+- [x] ~~Share goal progress in Twitter + mark social achievement as done~~
 
 ### MOBILE
 
