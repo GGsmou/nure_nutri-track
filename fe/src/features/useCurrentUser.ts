@@ -33,6 +33,7 @@ export const useCurrentUser = () => {
       subscription:
         MAP_SUBSCRIPTION[user.userType.subscription as unknown as 0 | 1 | 2],
       bannedIngredients: user.userType.bannedIngredients || [],
+      typeId: user.userType.id,
     } as UserType;
   });
 };
