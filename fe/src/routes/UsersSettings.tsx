@@ -374,7 +374,7 @@ const UsersSettings = () => {
               color="success"
               size="large"
               disabled={usr.subscription === "t-2"}
-              onClick={() => navigate("/payment?tier=t-2&success=true")}
+              onClick={() => navigate("/payment?tier=t-2&redirect=true")}
             >
               Became a pro!
             </Button>
