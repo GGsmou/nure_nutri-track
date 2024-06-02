@@ -17,7 +17,7 @@ _to test when BE is ready_
 - [x] Recipes details with comments and upvotes
 - [x] ~~Calories limit~~
 - [x] ~~Set goal for loose/gain weight + graphs + predictions graphs~~
-- [x] ~~Achievements~~
+- [x] ~~Achievement~~
 - [x] ~~Company statistics(t-3)~~
 
 ### FE Integrations
