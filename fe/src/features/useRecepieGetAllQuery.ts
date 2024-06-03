@@ -22,7 +22,8 @@ export const useRecepieGetAllQuery = (filter: { id?: string }) => {
           // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-explicit-any
           (x: any) => INGREDIENTS.find((i) => i.id === x.id)?.name || "",
         ),
-        votes: obj.reviews,
+        votes: obj.votes || 0,
+        isPremium: `${obj.name}`.includes("*"),
       })) as unknown as Recepie[];
     },
   });

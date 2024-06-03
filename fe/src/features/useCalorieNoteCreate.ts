@@ -20,7 +20,9 @@ export const useCalorieNoteCreate = (
       id: data.id,
       createdAt: new Date(data.createdAt).toISOString(),
       userId: data.userId,
-      recepieId: data.recepieId,
+      // recepieId: data.recepieId,
+      recepieId: undefined,
+      calorie: data.calorie,
     });
   });
 };

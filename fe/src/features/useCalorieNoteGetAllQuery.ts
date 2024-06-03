@@ -3,7 +3,6 @@ import { fetchAbstract } from "../utils/fetchAbstract";
 
 import { CalorieNote } from "../types/CalorieNote";
 import { urlBuilder } from "../utils/urlBuilder";
-import { Recepie } from "../types/Recepie";
 
 export const useCalorieNoteGetAllQuery = (filter: {
   userId?: string;
@@ -25,19 +24,11 @@ export const useCalorieNoteGetAllQuery = (filter: {
         })
         .filter((c) => {
           if (!filter.createdAt) return true;
-          return c.createdAt === filter.createdAt;
+          return c.createdAt.split("T")[0] === filter.createdAt;
         });
-
-      const res = await fetchAbstract(
-        urlBuilder("Recipes", filter, true),
-        "GET",
-      );
-
-      const ress = Array.isArray(res) ? res : ([res] as Recepie[]);
 
       return callFil.map((c) => ({
         ...c,
-        recepieName: ress.find((r) => r.id === c.recepieId)?.name || "",
       })) as CalorieNote[];
     },
   });

@@ -54,7 +54,7 @@ const CalorieNoteAdd = () => {
   const form = useForm<CalorieNote>({
     defaultValues: {
       id: getId(),
-      userId: user.typeId,
+      userId: user.id,
       createdAt: formatDateToYYYYMMDD(new Date()),
       calorie: 0,
       recepieId: "",

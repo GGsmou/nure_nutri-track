@@ -1,22 +1,32 @@
 import { useContext, useMemo, useState } from "react";
 import { Box, Button, IconButton, LinearProgress } from "@mui/material";
 import { Link } from "react-router-dom";
-import { Delete, Edit } from "@mui/icons-material";
+import { Delete, Twitter } from "@mui/icons-material";
 import { GridColDef } from "@mui/x-data-grid";
 import { useCalorieNoteGetAllQuery } from "../features/useCalorieNoteGetAllQuery";
 import { UserContext } from "../components/Fallback";
 import { formatDateToYYYYMMDD } from "../utils/parseDate";
 import { useCalorieNoteDelete } from "../features/useCalorieNoteDelete";
 import { getStyledDataGrid } from "../utils/getStyledDataGrid";
+import { UserType } from "../types/User";
+import { useUserGetAllQuery } from "../features/useUserGetAllQuery";
+import { useUserDoneAchievement } from "../features/useUserDoneAchievement";
 
 const StyledDataGrid = getStyledDataGrid();
 
 export const CalorieNote = () => {
-  const user = useContext(UserContext);
+  const usr = useContext(UserContext);
+  const { mutateAsync: doneAchievement } = useUserDoneAchievement();
+
+  const usQ = useUserGetAllQuery({
+    id: usr.typeId,
+  });
+
+  const user = usQ.data?.[0] || ({} as unknown as UserType);
   const isAdmin = user.role === "admin";
 
   const { error, isLoading, data, refetch } = useCalorieNoteGetAllQuery({
-    userId: isAdmin ? undefined : user.id,
+    userId: isAdmin ? undefined : usr.id,
     createdAt: isAdmin ? undefined : formatDateToYYYYMMDD(new Date()),
   });
   const caloryNoteDelete = useCalorieNoteDelete();
@@ -45,12 +55,6 @@ export const CalorieNote = () => {
         sortable: false,
       },
       {
-        field: "recepieName",
-        headerName: "Recipe",
-        type: "string",
-        sortable: false,
-      },
-      {
         field: "actions",
         headerName: "Actions",
         sortable: false,
@@ -58,11 +62,11 @@ export const CalorieNote = () => {
         renderCell: (cellValues) => {
           return (
             <>
-              <Link to={`/calories/edit/${cellValues.row.id}`}>
+              {/* <Link to={`/calories/edit/${cellValues.row.id}`}>
                 <IconButton aria-label="edit">
                   <Edit />
                 </IconButton>
-              </Link>
+              </Link> */}
               <IconButton
                 aria-label="delete"
                 onClick={() => {
@@ -106,8 +110,12 @@ export const CalorieNote = () => {
   }, [caloryNoteDelete, refetch, isAdmin]);
 
   const callories = useMemo(() => {
-    return data?.reduce((acc, row) => acc + row.calorie, 0) || 0;
-  }, [data]);
+    return (
+      data
+        ?.filter((row) => row.userId === usr.id)
+        ?.reduce((acc, row) => acc + row.calorie, 0) || 0
+    );
+  }, [data, usr.id]);
 
   return (
     <>
@@ -128,33 +136,60 @@ export const CalorieNote = () => {
           marginBottom: "1rem",
         }}
       >
-        <Box sx={{ width: "300px" }}>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-            }}
-          >
-            <b>Daily calories:</b>
-          </div>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              marginBottom: ".25rem",
-              marginTop: ".5rem",
-            }}
-          >
-            <span>{callories}</span>
-            <span>{(callories / user.dailyCalories) * 100} %</span>
-            <span>{user.dailyCalories}</span>
-          </div>
+        <Box sx={{ display: "flex", alignItems: "flex-end", gap: "20px" }}>
+          <Box sx={{ width: "300px" }}>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+              }}
+            >
+              <b>Daily calories:</b>
+            </div>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                marginBottom: ".25rem",
 
-          <LinearProgress
-            variant="determinate"
-            value={Math.min((callories / user.dailyCalories) * 100, 100)}
-            color={callories > user.dailyCalories ? "error" : "success"}
-          />
+                marginTop: ".5rem",
+              }}
+            >
+              <span>{callories}</span>
+              <span>
+                {((callories / user.dailyCalories) * 100).toFixed(2)} %
+              </span>
+              <span>{user.dailyCalories}</span>
+            </div>
+
+            <LinearProgress
+              variant="determinate"
+              value={Math.min((callories / user.dailyCalories) * 100, 100)}
+              color={callories > user.dailyCalories ? "error" : "success"}
+            />
+          </Box>
+          <a
+            href={`https://twitter.com/intent/tweet?text=Check%20out%20my%20${callories}%20daily%20calories%20at%20NutriTrack!`}
+            target="_blank"
+            rel="noreferrer"
+            onClick={() =>
+              !usr.social &&
+              doneAchievement({ id: usr.typeId, achievement: "social" })
+            }
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "5px",
+              textDecoration: "none",
+              backgroundColor: "black",
+              borderRadius: "50px",
+              padding: "5px 10px",
+              color: "white",
+            }}
+          >
+            <Twitter />
+            Share
+          </a>
         </Box>
         <div
           style={{
@@ -170,7 +205,6 @@ export const CalorieNote = () => {
           </Link>
         </div>
       </div>
-
       <div
         style={{
           height: 550,

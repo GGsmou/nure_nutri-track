@@ -22,7 +22,7 @@ export const useWaterNoteGetAllQuery = (filter: {
         })
         .filter((w) => {
           if (!filter.createdAt) return true;
-          return w.createdAt === filter.createdAt;
+          return w.createdAt.split("T")[0] === filter.createdAt;
         }) as WaterNote[];
     },
   });

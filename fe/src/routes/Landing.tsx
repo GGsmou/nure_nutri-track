@@ -408,7 +408,7 @@ export const Landing = () => {
                     <CheckMark text="Support Through a Live Chat" />
                     <CheckMark text="All Recipes" />
                     <Link
-                      to="/payment"
+                      to="/payment?tier=t-2&redirect=true"
                       style={{
                         width: "100%",
                       }}
@@ -480,7 +480,7 @@ export const Landing = () => {
                     <CheckMark text="Company statistics" />
                     <CheckMark text="Fastest Support" />
                     <Link
-                      to="/payment"
+                      to="/payment?tier=t-3&redirect=true"
                       style={{
                         width: "100%",
                       }}

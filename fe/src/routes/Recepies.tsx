@@ -18,7 +18,17 @@ export const Recepies = () => {
   const deleteU = useRecepieDelete();
   const [localError, setLocalError] = useState<string>("");
 
-  const rows = data || [];
+  const rows = (data || []).filter((r) => {
+    if (user.role === "admin") {
+      return true;
+    }
+
+    if (user.subscription === "t-1") {
+      return r.isPremium === false;
+    }
+
+    return true;
+  });
 
   const columns = useMemo(() => {
     return [
@@ -35,12 +45,12 @@ export const Recepies = () => {
         type: "string",
         sortable: false,
       },
-      {
-        field: "ingredients",
-        headerName: "Ingredients",
-        type: "string",
-        sortable: false,
-      },
+      // {
+      //   field: "ingredients",
+      //   headerName: "Ingredients",
+      //   type: "string",
+      //   sortable: false,
+      // },
       {
         field: "calories",
         headerName: "Calories",
@@ -65,12 +75,12 @@ export const Recepies = () => {
         type: "boolean",
         sortable: false,
       },
-      {
-        field: "isCreatedByUser",
-        headerName: "Created by user",
-        type: "boolean",
-        sortable: false,
-      },
+      // {
+      //   field: "isCreatedByUser",
+      //   headerName: "Created by user",
+      //   type: "boolean",
+      //   sortable: false,
+      // },
       {
         field: "actions",
         headerName: "Actions",

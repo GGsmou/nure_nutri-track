@@ -115,14 +115,16 @@ const RecepiesDetails = () => {
               <IconButton
                 aria-label="upvote"
                 onClick={() => {
-                  voteMut.mutateAsync({ id: item.id, type: "up" }).then(() => {
-                    items.refetch();
+                  voteMut
+                    .mutateAsync({ res: item, id: item.id, type: "up" })
+                    .then(() => {
+                      items.refetch();
 
-                    achieve.mutateAsync({
-                      id: user.typeId,
-                      achievement: "criticTwoPointO",
+                      achieve.mutateAsync({
+                        id: user.typeId,
+                        achievement: "criticTwoPointO",
+                      });
                     });
-                  });
                 }}
               >
                 <ArrowUpward />
@@ -132,7 +134,7 @@ const RecepiesDetails = () => {
                 aria-label="downvote"
                 onClick={() => {
                   voteMut
-                    .mutateAsync({ id: item.id, type: "down" })
+                    .mutateAsync({ res: item, id: item.id, type: "down" })
                     .then(() => {
                       items.refetch();
                     });
@@ -145,7 +147,6 @@ const RecepiesDetails = () => {
 
           <div>
             <div>Calories: {item.calories}</div>
-            <div>Ingredients: {item.ingredients.join(", ")}</div>
             <div>Description: {item.description}</div>
           </div>
         </div>

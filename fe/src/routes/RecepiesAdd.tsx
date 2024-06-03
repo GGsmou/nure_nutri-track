@@ -14,7 +14,6 @@ import { useRecepieCreate } from "../features/useRecepieCreate";
 import { Recepie } from "../types/Recepie";
 import { useUserDoneAchievement } from "../features/useUserDoneAchievement";
 import { getId } from "../utils/getId";
-import { INGREDIENTS } from "../utils/ingredients";
 
 const RecepiesAdd = () => {
   const user = useContext(UserContext);
@@ -26,7 +25,7 @@ const RecepiesAdd = () => {
       }
     : {};
   const items = useRecepieGetAllQuery(filter);
-  const item = items.data as unknown as Recepie;
+  const item = items.data?.[0] as unknown as Recepie;
 
   const achieve = useUserDoneAchievement();
 
@@ -67,7 +66,7 @@ const RecepiesAdd = () => {
     form.setValue("name", item.name || "");
     form.setValue(
       "ingredients",
-      (item.ingredients.join(", ") as unknown as []) || ("" as unknown as []),
+      (item?.ingredients?.join(", ") as unknown as []) || ("" as unknown as []),
     );
     form.setValue("calories", item.calories || 0);
     form.setValue("description", item.description || "");
@@ -82,12 +81,7 @@ const RecepiesAdd = () => {
   const handleCreate = form.handleSubmit((data) => {
     setError("");
 
-    if (
-      !data.name ||
-      !data.ingredients.length ||
-      !data.calories ||
-      !data.description
-    ) {
+    if (!data.name || !data.calories || !data.description) {
       setError("Fill all fields");
       return;
     }
@@ -95,7 +89,6 @@ const RecepiesAdd = () => {
     mutation
       .mutateAsync({
         ...data,
-        ingredients: data.ingredients.toString().split(", "),
       })
       .then(() => {
         achieve
@@ -238,7 +231,7 @@ const RecepiesAdd = () => {
               )}
             />
 
-            <Controller
+            {/* <Controller
               name="ingredients"
               control={form.control}
               render={({ field }) => (
@@ -257,7 +250,7 @@ const RecepiesAdd = () => {
                   />
                 </FormControl>
               )}
-            />
+            /> */}
 
             <Controller
               name="isPremium"

@@ -1,4 +1,5 @@
 export type Recepie = {
+  servingSizeInGrams: number;
   id: string;
   name: string;
   ingredients: string[];

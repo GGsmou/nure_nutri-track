@@ -130,7 +130,7 @@ export const Auth = () => {
               Welcome to
             </Typography>
             <img
-              src="/logo.png"
+              src="/nure_nutri-track/logo.png"
               alt="logo"
               style={{
                 width: "140px",
