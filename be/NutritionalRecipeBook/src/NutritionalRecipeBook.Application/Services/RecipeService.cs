@@ -78,16 +78,20 @@ namespace NutritionalRecipeBook.Application.Services
             return Result<GetRecipeResponse>.Success(response);
         }
 
-        public async Task<Result> CreateAsync(CreateRecipeRequest request)
+        public async Task<Result<Recipe>> CreateAsync(CreateRecipeRequest request)
         {
             var recipeSpecification = new RecipeSpecification(request.Name, request.Description, request.Calories);
 
             var recipe = new Recipe(recipeSpecification);
 
+            recipe.Votes = request.Votes;
+            recipe.IsPremium = request.IsPremium;
+            recipe.IsCreatedByUser = request.IsCreatedByUser;
+            
             await _recipeRepository.CreateAsync(recipe);
             await AddIngredients(recipe, request.NewIngredientIds);
 
-            return Result.Success();
+            return Result<Recipe>.Success(recipe);
         }
 
         public async Task<Result> UpdateAsync(UpdateRecipeRequest request)

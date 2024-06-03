@@ -14,7 +14,7 @@ namespace NutritionalRecipeBook.Application.Contracts
 
         public Task<Result<GetRecipeResponse>> GetByIdWithRelationsAsync(Guid id);
 
-        public Task<Result> CreateAsync(CreateRecipeRequest request);
+        public Task<Result<Recipe>> CreateAsync(CreateRecipeRequest request);
 
         public Task<Result> UpdateAsync(UpdateRecipeRequest request);
 

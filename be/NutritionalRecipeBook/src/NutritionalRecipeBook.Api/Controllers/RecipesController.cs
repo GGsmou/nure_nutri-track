@@ -78,7 +78,7 @@ namespace NutritionalRecipeBook.Api.Controllers
         {
             var result = await _recipeService.CreateAsync(request);
 
-            return result.IsSuccess ? Ok("Succesfully created") : BadRequest(result.Error.Message);
+            return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Error.Message);
         }
 
         [HttpPut]
@@ -86,7 +86,7 @@ namespace NutritionalRecipeBook.Api.Controllers
         {
             var result = await _recipeService.UpdateAsync(request);
 
-            return result.IsSuccess ? Ok("Succesfully updated") : BadRequest(result.Error.Message);
+            return result.IsSuccess ? Ok(request) : BadRequest(result.Error.Message);
         }
 
         [HttpDelete("{id}")]
