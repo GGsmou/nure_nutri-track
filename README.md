@@ -2,11 +2,7 @@
 
 ## Features tracking
 
-_Checked - to test. Crossed - done_
-
 ### FE Base
-
-_to test when BE is ready_
 
 - [x] ~~CaloriesNotes for the day~~
 - [x] ~~Exercises crud(Admin)~~
@@ -14,7 +10,7 @@ _to test when BE is ready_
 - [x] ~~Water crud~~
 - [x] ~~User crud(Admin)~~
 - [x] ~~Recipes crud~~
-- [x] Recipes details with comments and upvotes
+- [x] ~~Recipes details with comments and upvotes~~
 - [x] ~~Calories limit~~
 - [x] ~~Set goal for loose/gain weight + graphs + predictions graphs~~
 - [x] ~~Achievement~~
