@@ -21,7 +21,6 @@ namespace NutritionalRecipeBook.Api.Validators
                 .WithMessage("{PropertyName} cannot be empty.")
                 .Length(2, 500)
                 .WithMessage("Length ({TotalLength}) of {PropertyName} is invalid.");
-
         }
     }
 }

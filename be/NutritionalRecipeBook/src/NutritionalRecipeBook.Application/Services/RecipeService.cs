@@ -94,20 +94,27 @@ namespace NutritionalRecipeBook.Application.Services
             return Result<Recipe>.Success(recipe);
         }
 
-        public async Task<Result> UpdateAsync(UpdateRecipeRequest request)
+        public async Task<Result<Recipe>> UpdateAsync(UpdateRecipeRequest request)
         {
             var existingRecipe = await _recipeRepository.GetByIdWithRelationsAsync(request.Id);
 
             if (existingRecipe is null)
             {
-                return Result.Failure(new Error("404", "Such recipe doesn't exist"));
+                return Result<Recipe>.Failure(new Error("404", "Such recipe doesn't exist"));
             }
 
             await UpdatePlainProperties(existingRecipe, request);
-            await AddIngredients(existingRecipe, request.NewIngredients);
+            
+            if (request.NewIngredients != null)
+                await AddIngredients(existingRecipe, request.NewIngredients);
+            
+            existingRecipe.Votes = request.Votes;
+            existingRecipe.IsPremium = request.IsPremium;
+            existingRecipe.IsCreatedByUser = request.IsCreatedByUser;
+            
             await _recipeRepository.UpdateAsync(existingRecipe);
             
-            return Result.Success();
+            return Result<Recipe>.Success(existingRecipe);
         }
 
         public async Task<Result> DeleteByIdAsync(Guid id, string userId)
