@@ -10,11 +10,11 @@ namespace NutritionalRecipeBook.Application.Common.Models.Recipe
 
         public string Description { get; set; }
 
-        public List<Guid> NewIngredients { get; set; }
+        public List<Guid>? NewIngredients { get; set; }
         
         public double Calories { get; set; }
         
-        public double? Votes { get; set; }
+        public int? Votes { get; set; }
 
         public bool? IsPremium { get; set; }
         

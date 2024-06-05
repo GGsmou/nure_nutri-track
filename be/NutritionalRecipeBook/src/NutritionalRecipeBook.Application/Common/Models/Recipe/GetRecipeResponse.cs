@@ -27,5 +27,11 @@ namespace NutritionalRecipeBook.Application.Common.Models.Recipe
         public IEnumerable<Ingredient> Ingredients { get; set; }
 
         public string UserId { get; set; }
+        
+        public int? Votes { get; set; }
+
+        public bool? IsPremium { get; set; }
+        
+        public bool? IsCreatedByUser { get; set; }
     }
 }

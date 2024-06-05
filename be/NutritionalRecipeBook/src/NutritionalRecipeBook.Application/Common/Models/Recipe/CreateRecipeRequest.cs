@@ -12,7 +12,7 @@ namespace NutritionalRecipeBook.Application.Common.Models.Recipe
         
         public double Calories { get; set; } 
         
-        public double? Votes { get; set; }
+        public int? Votes { get; set; }
 
         public bool? IsPremium { get; set; }
         
