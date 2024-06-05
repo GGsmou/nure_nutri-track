@@ -12,6 +12,7 @@ import { BarChart, LineChart } from "@mui/x-charts";
 import { useExerciseNoteGetAllQuery } from "../features/useExerciseNoteGetAllQuery";
 import { ExercisesNote } from "../types/ExercisesNote";
 import { useUserGetAllQuery } from "../features/useUserGetAllQuery";
+import { useCreateWeightGoalEvent } from "../features/useCreateWeightGoalEvent";
 
 const MIDDLE_CCALS_PER_DAY = 2000;
 
@@ -30,6 +31,7 @@ const days = calcDays();
 
 const UsersSettings = () => {
   const usr = useContext(UserContext);
+  const createWeightGoal = useCreateWeightGoalEvent();
 
   const usQ = useUserGetAllQuery({
     id: usr.typeId,
@@ -390,6 +392,17 @@ const UsersSettings = () => {
               onClick={() => navigate("/payment?tier=t-3&redirect=true")}
             >
               Goto Business
+            </Button>
+          </div>
+          <div
+            style={{ width: "100%", display: "flex", justifyContent: "center" }}
+          >
+            <Button
+              onClick={createWeightGoal}
+              variant="contained"
+              color="success"
+            >
+              Add weight goal to the calendar
             </Button>
           </div>
           <div
