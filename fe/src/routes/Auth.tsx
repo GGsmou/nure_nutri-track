@@ -8,6 +8,8 @@ import {
   createTheme,
 } from "@mui/material";
 import { useAuthForm } from "../features/useAuthForm";
+import { Google } from "@mui/icons-material";
+import { useGoogleAuth } from "../features/useGoogleAuth";
 const theme = createTheme({
   palette: {
     primary: { main: "#54BD95" },
@@ -16,6 +18,7 @@ const theme = createTheme({
 
 export const Auth = () => {
   const { fields, handlers } = useAuthForm();
+  const googleAuth = useGoogleAuth();
   return (
     <ThemeProvider theme={theme}>
       <Box
@@ -110,7 +113,15 @@ export const Auth = () => {
               <Divider sx={{ width: "100%" }}>
                 <Typography>OR</Typography>
               </Divider>
-              <Box>Google</Box>
+              <Box>
+                <Button
+                  startIcon={<Google />}
+                  variant="outlined"
+                  onClick={googleAuth}
+                >
+                  Google
+                </Button>
+              </Box>
             </Box>
           </Box>
           <Box
