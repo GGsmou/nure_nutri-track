@@ -1,29 +1,26 @@
+import { calendar_v3 } from "googleapis";
 import { useMutation } from "react-query";
+import { useGoogleApis } from "./useGoogleApis";
 
 export const useCreateEvent = () => {
+  const { calendar } = useGoogleApis();
+
   return useMutation(
-    (data: {
+    async (data: {
       startDate: string;
       endDate: string;
       summary: string;
       description: string;
     }) => {
-      return fetch(
-        "https://googleapis.com/calendar/v3/calendars/primary/events",
-        {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${"AUTH_TOKEN" || ""}`,
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            end: { date: data.endDate },
-            start: { date: data.startDate },
-            summary: data.summary,
-            description: data.description,
-          }),
+      return calendar?.events.insert({
+        calendarId: "primary",
+        resource: {
+          end: { date: data.endDate },
+          start: { date: data.startDate },
+          summary: data.summary,
+          description: data.description,
         },
-      );
+      } as calendar_v3.Params$Resource$Events$Insert);
     },
   );
 };
