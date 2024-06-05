@@ -1,6 +1,5 @@
 import { calendar_v3 } from "googleapis";
 import { useEffect, useState } from "react";
-import { clientId } from "../utils/consts";
 
 const DISCOVERY_DOC =
   "https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest";
@@ -11,7 +10,6 @@ export const useGoogleApis = () => {
   useEffect(() => {
     gapi.load("client", async () => {
       await gapi.client.init({
-        clientId: clientId,
         discoveryDocs: [DISCOVERY_DOC],
       });
 
