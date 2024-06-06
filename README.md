@@ -6,7 +6,7 @@
 
 - [x] ~~CaloriesNotes for the day~~
 - [x] ~~Exercises crud(Admin)~~
-- [x] ~~ExercisesNotes crud~~
+- [x] ~~ExercisesNote crud~~
 - [x] ~~Water crud~~
 - [x] ~~User crud(Admin)~~
 - [x] ~~Recipes crud~~
