@@ -23,7 +23,7 @@
 - [x] ~~Custom auth~~
 - [ ] Google auth
 - [x] ~~Stripe sandbox payment for 3 tiers~~
-- [ ] Google calendar goals integration
+- [x] ~~Google calendar goals integration~~
 - [x] ~~Share goal progress in Twitter + mark social achievement as done~~
 
 ### MOBILE
