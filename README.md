@@ -18,10 +18,10 @@
 
 ### FE Integrations
 
-- [x] ~~Landing(figma)~~
-- [ ] Apk for mobile app
-- [x] ~~Custom auth~~
 - [ ] Google auth
+- [ ] Apk for mobile app
+- [x] ~~Landing(figma)~~
+- [x] ~~Custom auth~~
 - [x] ~~Stripe sandbox payment for 3 tiers~~
 - [x] ~~Google calendar goals integration~~
 - [x] ~~Share goal progress in Twitter + mark social achievement as done~~
@@ -30,9 +30,10 @@
 
 #### User flow
 
-- [ ] відображено статистику за водою: загальна кількість випитої води за день/тиждень/місяць, графік за останній місяць/тиждень/рік
-- [ ] Нотифікації від сервісу: нагадування (наприклад, «не забудь попити води», внести що поїв) і загальні від системи (наприклад, що давно не заходив).
+- [ ] water usage stats for day/week/month
+- [ ] notifications once a day(drink water, write out calories, we are missing you)
 
 #### Admin flow
 
-- [ ] головна сторінка, на якій відображено графічну статистику використання сервісу: кількість активних користувачів за останній день/тиждень/рік, процентний розподіл за вправами та стравами у всьому сервіс
+- [ ] exercises vs calories usage stats
+- [ ] active users daily/weekly/monthly
