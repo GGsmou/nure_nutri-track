@@ -66,15 +66,17 @@ export const Landing = () => {
                       Home
                     </Button>
                   </Link>
-                  <Button
-                    sx={{
-                      color: "black",
-                      textTransform: "none",
-                    }}
-                    size="large"
-                  >
-                    Download
-                  </Button>
+                  <a href="/nure_nutri-track/app.apk" download="app.apk">
+                    <Button
+                      sx={{
+                        color: "black",
+                        textTransform: "none",
+                      }}
+                      size="large"
+                    >
+                      Download
+                    </Button>
+                  </a>
                   <Link to="/auth">
                     <Button
                       variant="contained"
