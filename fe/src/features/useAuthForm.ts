@@ -1,11 +1,9 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
-import { useMutation } from "react-query";
-import * as yup from "yup";
-import { LoginBody, LoginResponse, RegisterBody } from "../types/Identity";
-import { fetchAbstract } from "../utils/fetchAbstract";
-import { authService } from "../utils/authService";
 import { useNavigate } from "react-router-dom";
+import * as yup from "yup";
+import { authService } from "../utils/authService";
+import { useSignIn, useSignUp } from "./useAuth";
 
 const AuthFormSchema = yup.object().shape({
   email: yup.string().email().required(),
@@ -15,16 +13,8 @@ type AuthFormType = yup.InferType<typeof AuthFormSchema>;
 
 export const useAuthForm = () => {
   const navigate = useNavigate();
-  const { mutateAsync: signIn } = useMutation((data: LoginBody) => {
-    return fetchAbstract(
-      "Identity/login",
-      "post",
-      data,
-    ) as Promise<LoginResponse>;
-  });
-  const { mutateAsync: signUp } = useMutation((data: RegisterBody) => {
-    return fetchAbstract("Identity/register", "post", data);
-  });
+  const { mutateAsync: signIn } = useSignIn();
+  const { mutateAsync: signUp } = useSignUp();
   const { formState, register, handleSubmit, setError } = useForm<AuthFormType>(
     {
       resolver: yupResolver(AuthFormSchema),
