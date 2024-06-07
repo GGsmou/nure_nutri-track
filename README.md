@@ -18,7 +18,7 @@
 
 ### FE Integrations
 
-- [ ] Google auth
+- [x] ~~Google auth~~
 - [ ] Apk for mobile app
 - [x] ~~Landing(figma)~~
 - [x] ~~Custom auth~~
@@ -30,8 +30,8 @@
 
 #### User flow
 
-- [ ] water usage stats for day/week/month
-- [ ] notifications once a day(drink water, write out calories, we are missing you)
+- [x] ~~water usage stats for day/week/month~~
+- [x] ~~notifications once a day(drink water, write out calories, we are missing you)~~
 
 #### Admin flow
 
