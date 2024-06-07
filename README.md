@@ -35,5 +35,5 @@
 
 #### Admin flow
 
-- [ ] exercises vs calories usage stats
-- [ ] active users daily/weekly/monthly
+- [x] ~~exercises vs calories usage stats~~
+- [x] ~~active users daily/weekly/monthly~~
