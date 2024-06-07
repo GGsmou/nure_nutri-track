@@ -13,6 +13,7 @@ import { useExerciseNoteGetAllQuery } from "../features/useExerciseNoteGetAllQue
 import { ExercisesNote } from "../types/ExercisesNote";
 import { useUserGetAllQuery } from "../features/useUserGetAllQuery";
 import { useCreateWeightGoalEvent } from "../features/useCreateWeightGoalEvent";
+import { authService } from "../utils/authService";
 
 const MIDDLE_CCALS_PER_DAY = 2000;
 
@@ -31,7 +32,8 @@ const days = calcDays();
 
 const UsersSettings = () => {
   const usr = useContext(UserContext);
-  const createWeightGoal = useCreateWeightGoalEvent();
+  const { mutateAsync: createWeightGoal, isSuccess } =
+    useCreateWeightGoalEvent();
 
   const usQ = useUserGetAllQuery({
     id: usr.typeId,
@@ -394,17 +396,25 @@ const UsersSettings = () => {
               Goto Business
             </Button>
           </div>
-          <div
-            style={{ width: "100%", display: "flex", justifyContent: "center" }}
-          >
-            <Button
-              onClick={createWeightGoal}
-              variant="contained"
-              color="success"
+          {authService.getGoogleToken() && (
+            <div
+              style={{
+                width: "100%",
+                display: "flex",
+                justifyContent: "center",
+              }}
             >
-              Add weight goal to the calendar
-            </Button>
-          </div>
+              <Button
+                onClick={createWeightGoal}
+                variant="contained"
+                color="success"
+                disabled={isSuccess}
+              >
+                Add weight goal to the calendar
+              </Button>
+            </div>
+          )}
+
           <div
             style={{ width: "100%", display: "flex", justifyContent: "center" }}
           >

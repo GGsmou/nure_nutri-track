@@ -4,7 +4,7 @@ import { useCreateEvent } from "./useCreateEvent";
 
 export const useCreateWeightGoalEvent = () => {
   const user = useContext(UserContext);
-  const { mutateAsync: createEvent } = useCreateEvent();
+  const { mutateAsync: createEvent, ...rest } = useCreateEvent();
 
   const endDate = new Date(
     new Date().getFullYear(),
@@ -19,11 +19,15 @@ export const useCreateWeightGoalEvent = () => {
 
   const description = `Weight goal for ${user.name}. You need to ${weightAction} ${weightDifference} kg. for the end of this month.`;
 
-  return () =>
-    createEvent({
-      endDate,
-      startDate: endDate,
-      description: description,
-      summary: "Weight Goal",
-    });
+  return {
+    mutateAsync: () => {
+      return createEvent({
+        endDate,
+        startDate: endDate,
+        description: description,
+        summary: "Weight Goal",
+      });
+    },
+    ...rest,
+  };
 };
