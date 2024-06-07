@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { authService } from "../utils/authService";
 
 const DISCOVERY_DOC =
   "https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest";
@@ -15,7 +16,7 @@ export const useGoogleApis = () => {
       });
 
       gapi.client.setToken({
-        access_token: "<ACCESS_TOKEN>",
+        access_token: authService.getGoogleToken() || "",
       });
 
       setCalendar(gapi.client.calendar);

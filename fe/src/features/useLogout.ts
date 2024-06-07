@@ -9,6 +9,7 @@ export const useLogout = () => {
     mutationFn: async () => {
       //await fetchAbstract("identity/logout", "post");
       authService.removeAuthInfo();
+      authService.removeGoogleToken();
       navigate("/auth");
       return;
     },
