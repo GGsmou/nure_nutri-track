@@ -19,7 +19,7 @@
 ### FE Integrations
 
 - [x] ~~Google auth~~
-- [ ] Apk for mobile app
+- [x] ~~Apk for mobile app~~
 - [x] ~~Landing(figma)~~
 - [x] ~~Custom auth~~
 - [x] ~~Stripe sandbox payment for 3 tiers~~
