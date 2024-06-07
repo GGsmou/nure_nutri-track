@@ -1,11 +1,12 @@
-import { calendar_v3 } from "googleapis";
 import { useEffect, useState } from "react";
 
 const DISCOVERY_DOC =
   "https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest";
 
 export const useGoogleApis = () => {
-  const [calendar, setCalendar] = useState<calendar_v3.Calendar | null>(null);
+  const [calendar, setCalendar] = useState<typeof gapi.client.calendar | null>(
+    null,
+  );
 
   useEffect(() => {
     gapi.load("client", async () => {
@@ -17,11 +18,7 @@ export const useGoogleApis = () => {
         access_token: "<ACCESS_TOKEN>",
       });
 
-      setCalendar(
-        gapi.client[
-          "calendar" as unknown as keyof typeof gapi.client
-        ] as unknown as calendar_v3.Calendar,
-      );
+      setCalendar(gapi.client.calendar);
     });
   });
 

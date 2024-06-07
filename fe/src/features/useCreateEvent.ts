@@ -1,4 +1,3 @@
-import { calendar_v3 } from "googleapis";
 import { useMutation } from "react-query";
 import { useGoogleApis } from "./useGoogleApis";
 
@@ -20,7 +19,7 @@ export const useCreateEvent = () => {
           summary: data.summary,
           description: data.description,
         },
-      } as calendar_v3.Params$Resource$Events$Insert);
+      });
     },
   );
 };
